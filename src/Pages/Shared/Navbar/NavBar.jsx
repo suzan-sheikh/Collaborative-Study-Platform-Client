@@ -3,17 +3,14 @@ import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import ResponsiveMenu from "./ResponsiveMenu";
 import logo from "../../../assets/images/logo.png";
+import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
-  //   const { user, logOut } = useAuth();
+    // const { user, logOut } = useAuth();
 
-  const user = {
-    displayName: "md Suzan Sheikh",
-    photoURL:
-      "https://lh3.googleusercontent.com/-XdP66AzzK1c/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfklTvdIuR6-9cxcX9GmXLM9IDRvYCg/photo.jpg?sz=46",
-  };
+    const user = null;
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -61,58 +58,10 @@ const Navbar = () => {
               : "text-[#282828] border-none font-md text-md"
           }
         >
-          All Jobs
-        </NavLink>
-      </li>
-      <li className="py-4">
-        <NavLink
-          to="/addJobs"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
-              : "text-[#282828] border-none font-md text-md"
-          }
-        >
-          Add A Job
-        </NavLink>
-      </li>
-      <li className="py-4">
-        <NavLink
-          to="/myJobs"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
-              : "text-[#282828] border-none font-md text-md"
-          }
-        >
-          My Jobs
-        </NavLink>
-      </li>
-      <li className="py-4">
-        <NavLink
-          to="/appliedJobs"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
-              : "text-[#282828] border-none font-md text-md"
-          }
-        >
-          Applied Jobs
+          Section
         </NavLink>
       </li>
 
-      <li className="py-4">
-        <NavLink
-          to="/blog"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
-              : "text-[#282828] border-none font-md text-md"
-          }
-        >
-          Blogs
-        </NavLink>
-      </li>
     </>
   );
 
@@ -138,7 +87,7 @@ const Navbar = () => {
               <ul className="menu menu-horizontal px-1">
                 {!user && (
                   <li>
-                    <Link to="login">Login</Link>
+                    <Link to="login" className="text-[#282828] font-md text-lg">Login</Link>
                   </li>
                 )}
               </ul>
@@ -183,7 +132,7 @@ const Navbar = () => {
                     </li>
                     <li className="mt-2">
                       <button
-                        // onClick={logOut}
+                        onClick={logOut}
                         className="bg-gray-200 block text-center"
                       >
                         Logout
