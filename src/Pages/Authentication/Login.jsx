@@ -1,52 +1,30 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state || '/';
 
-  // const from = location.state || "/";
+  const { signIn, signInWithGoogle, githubSignIn, user, loading } = useAuth();
 
-  const { signIn, signInWithGoogle, user, loading } = useAuth();
-  // const location = useLocation();
-
-  // useEffect(() => {
-  //   if (user) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, user]);
-
-  // googleSignIN
-  const handleGoogleSignIn = async () => {
-
-    console.log(signInWithGoogle);
-
-    try {
-      // 1. google sign in from firebase
-      const result = await signInWithGoogle();
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/jwt`,
-        {
-          email: result?.user?.email,
-        },
-        { withCredentials: true }
-      );
-      toast.success("login success");
-      // navigate(from, { replace: true });
-    } catch (err) {
-      toast.error("login failed");
-    }
+  const handleSignIn = async (socialProvider) => {
+    try{
+      await socialProvider()
+      navigate(from, { replace: true })
+      toast.success('SignUp Successful')
+      
+    }catch (err) {
+      console.log(err)
+      toast.error(err.message)
+    }   
   };
 
-  const handleGithubSignIn = async () => {
-    console.log('github Ok');
-
-  }
   const {
     register,
     reset,
@@ -89,7 +67,7 @@ const Login = () => {
           <p className="mt-3 text-xl text-center text-white">Welcome back!</p>
 
           <div
-            onClick={handleGoogleSignIn}
+            onClick={() => handleSignIn(signInWithGoogle)}
             className="flex cursor-pointer items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg hover:bg-gray-50 "
           >
             <div className="px-2 py-1">
@@ -118,7 +96,7 @@ const Login = () => {
             </span>
           </div>
           <div
-            onClick={handleGithubSignIn}
+            onClick={() => handleSignIn(githubSignIn)}
             className="flex cursor-pointer items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg hover:bg-gray-50 "
           >
             <div className="px-2 py-1 max-w-9">  

@@ -8,10 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
 
-    // const { user, logOut } = useAuth();
-
-    const user = null;
-
+    const { user, logOut } = useAuth()
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
