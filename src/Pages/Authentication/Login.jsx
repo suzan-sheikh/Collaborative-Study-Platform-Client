@@ -1,18 +1,19 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
 
-
   // const navigate = useNavigate();
-  // const { signIn, signInWithGoogle, user, loading } = useAuth();
-  // const location = useLocation();
+
   // const from = location.state || "/";
+
+  const { signIn, signInWithGoogle, user, loading } = useAuth();
+  // const location = useLocation();
 
   // useEffect(() => {
   //   if (user) {
@@ -22,24 +23,30 @@ const Login = () => {
 
   // googleSignIN
   const handleGoogleSignIn = async () => {
-    console.log('ok');
-    // try {
-    //   // 1. google sign in from firebase
-    //   const result = await signInWithGoogle();
-    //   await axios.post(
-    //     `${import.meta.env.VITE_API_URL}/jwt`,
-    //     {
-    //       email: result?.user?.email,
-    //     },
-    //     { withCredentials: true }
-    //   );
-    //   toast.success("login success");
-    //   navigate(from, { replace: true });
-    // } catch (err) {
-    //   toast.error("login failed");
-    // }
+
+    console.log(signInWithGoogle);
+
+    try {
+      // 1. google sign in from firebase
+      const result = await signInWithGoogle();
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        { withCredentials: true }
+      );
+      toast.success("login success");
+      // navigate(from, { replace: true });
+    } catch (err) {
+      toast.error("login failed");
+    }
   };
 
+  const handleGithubSignIn = async () => {
+    console.log('github Ok');
+
+  }
   const {
     register,
     reset,
@@ -51,28 +58,25 @@ const Login = () => {
     const { email, password } = data;
 
     console.log(email, password);
-    // try {
-    //   //User Login
-    //   const result = await signIn(email, password);
-    //    await axios.post(
-    //     `${import.meta.env.VITE_API_URL}/jwt`,
-    //     {
-    //       email: result?.user?.email,
-    //     },
-    //     { withCredentials: true }
-    //   );
-    //   navigate(from, { replace: true });
-    //   toast.success("Login Successful");
-    //   reset();
-    // } catch (err) {
-    //   toast.error("Login Failed");
-    // }
+    try {
+      //User Login
+      const result = await signIn(email, password);
+       await axios.post(
+        `${import.meta.env.VITE_API_URL}/jwt`,
+        {
+          email: result?.user?.email,
+        },
+        { withCredentials: true }
+      );
+      navigate(from, { replace: true });
+      toast.success("Login Successful");
+      reset();
+    } catch (err) {
+      toast.error("Login Failed");
+    }
   };
 
-  // if (user && loading) return;
-
-
-
+  if (user && loading) return;
 
   return (
     <div className="flex justify-center items-center mx-auto my-4 container px-4 mt-20">
@@ -111,6 +115,18 @@ const Login = () => {
 
             <span className="w-5/6 px-4 py-1 font-bold text-center hover:text-gray-500">
               Sign in with Google
+            </span>
+          </div>
+          <div
+            onClick={handleGithubSignIn}
+            className="flex cursor-pointer items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg hover:bg-gray-50 "
+          >
+            <div className="px-2 py-1 max-w-9">  
+              <img className="w-full" src="https://img.icons8.com/?size=100&id=21276&format=png&color=000000" alt="image" />
+            </div>
+
+            <span className="w-5/6 px-4 py-1 font-bold text-center hover:text-gray-500">
+              Sign in with Github
             </span>
           </div>
 
