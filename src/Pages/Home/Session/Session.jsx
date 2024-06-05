@@ -5,7 +5,7 @@ const Session = () => {
     return (
         <div className="container mx-auto px-4 py-3 text-center">
             <div className="my-2 md:my-8">
-                <h2 className="text-4xl mx-auto font-medium text-black">Study session section</h2>
+                <h2 className="text-4xl mx-auto font-medium text-black uppercase">Study session</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="flex flex-col justify-center items-center gap-2 p-2 py-6 border-[1px] rounded-3xl border-[#003AAA] hover:bg-[#003AAA] hover:text-white transition ease-in-out delay-150">
