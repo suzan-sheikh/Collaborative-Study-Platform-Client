@@ -48,14 +48,14 @@ const Navbar = () => {
 
       <li className="py-4">
         <NavLink
-          to="/allJobs"
+          to="/dashboard"
           className={({ isActive }) =>
             isActive
               ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
               : "text-[#282828] border-none font-md text-md"
           }
         >
-          Section
+          Dashboard
         </NavLink>
       </li>
 
