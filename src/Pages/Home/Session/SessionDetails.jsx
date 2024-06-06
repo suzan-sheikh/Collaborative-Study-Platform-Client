@@ -3,8 +3,8 @@ const SessionDetails = () => {
     <div className="flex justify-center items-center mx-auto my-4 container px-4 mt-20">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg lg:max-w-4xl bg-[#006961] bg-no-repeat bg-cover">
         <div className="w-full px-6 py-8 md:px-8 mx-auto">
-          <p className="text-center text-xl mt-3 w-full px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-pink-500 to-purple-500  focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
-            Thi is Session Title.
+          <p className="text-white text-4xl mx-auto font-medium uppercase text-center">
+            Thi is Session Title
           </p>
 
 
@@ -72,7 +72,7 @@ const SessionDetails = () => {
 
           <div className="flex flex-col md:flex-row justify-between mt-2">
             <button
-              className="text-xl w-full px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-[#41CF9F] to-[#3B82F6] hover:from-pink-500 hover:to-purple-500 rounded-lg focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+              className="text-xl w-full px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-[#41CF9F] to-[#3B82F6] hover:from-[#3B82F6] hover:to-[#41CF9F] rounded-lg focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
             >
               Book Now
             </button>
