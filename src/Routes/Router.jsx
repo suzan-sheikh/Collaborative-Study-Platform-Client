@@ -7,6 +7,8 @@ import SessionDetails from "../Pages/Home/Session/SessionDetails";
 import Statistics from "../Pages/Dashboard/Common/Statistics";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Pages/Dashboard/Common/Profile";
+import MyBookings from "../Pages/Dashboard/Student/MyBookings";
+import SessionDetailed from "../Pages/Dashboard/Student/SessionDetailed";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ export const router = createBrowserRouter([
       {
         path: 'profile',
         element: <Profile/>
+      }
+      ,{
+        path: 'my-bookings',
+        element: <MyBookings/>
+      }
+      ,{
+        path: 'studentSessionDetailed',
+        element: <SessionDetailed/>
       }
     ]
   }
