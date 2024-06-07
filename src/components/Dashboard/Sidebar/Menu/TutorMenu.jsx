@@ -7,8 +7,8 @@ const TutorMenu = () => {
   return (
     <>
       <MenuItem icon={CiSquarePlus} label="Create Session" address="createSession"/>
-      <MenuItem icon={AiOutlineEye} label="View All Sessions" address="my-listings"/>
-      <MenuItem icon={MdOutlineFileUpload} label="Upload Materials" address="manage-bookings"/>
+      <MenuItem icon={AiOutlineEye} label="View All Sessions" address="allSession"/>
+      <MenuItem icon={MdOutlineFileUpload} label="Upload Materials" address="uploadMaterials"/>
       <MenuItem icon={DiMaterializecss} label="View All Materials" address="manage-bookings"/>
     </>
   );

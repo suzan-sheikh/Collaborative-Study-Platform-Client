@@ -82,7 +82,7 @@ const Sidebar = () => {
               <MenuItem icon={BsGraphUp} address='/dashboard' label='Statistics'/>
 
 
-            {/* <StudentMenu/> */}
+            <StudentMenu/>
             <TutorMenu/>
              {/* <HostMenu/> */}
             {/* <AdminMenu/>  */}
