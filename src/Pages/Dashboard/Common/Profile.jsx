@@ -5,7 +5,6 @@ const Profile = () => {
   // const { user, loading } = useAuth()
   // const [role, isLoading] = useRole()
 
-  // console.log(user)
 
   // if(isLoading || loading) return <LoadingSpinner/>
 

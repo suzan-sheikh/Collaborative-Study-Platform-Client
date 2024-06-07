@@ -20,7 +20,6 @@ const Login = () => {
       toast.success('SignUp Successful')
       
     }catch (err) {
-      console.log(err)
       toast.error(err.message)
     }   
   };
@@ -34,8 +33,6 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     const { email, password } = data;
-
-    console.log(email, password);
     try {
       //User Login
       const result = await signIn(email, password);

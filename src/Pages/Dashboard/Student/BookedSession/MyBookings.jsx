@@ -6,7 +6,7 @@
 // import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 
 import { Helmet } from "react-helmet"
-import BookingDataRow from "../../../components/Dashboard/TableRows/BookingDataRow"
+import BookingDataRow from "../../../../components/Dashboard/TableRows/BookingDataRow"
 
 const MyBookings = () => {
   // const { user } = useAuth()
@@ -25,7 +25,6 @@ const MyBookings = () => {
   //   },
   // })
 
-  // console.log(bookings)
   // if (isLoading) return <LoadingSpinner />
   return (
     <>

@@ -85,7 +85,7 @@ const SessionDetailed = () => {
     
                 <div className="flex flex-col md:flex-row justify-between mt-2">
                 <button
-                    className="mx-auto text-md px-4 py-1 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-[#41CF9F] to-[#3B82F6] hover:from-[#3B82F6] hover:to-[#41CF9F] rounded-lg focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
+                    className="mx-auto text-md px-4 py-1 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-[#41CF9F] to-[#3B82F6] hover:from-[#3B82F6] hover:to-[#41CF9F] focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 rounded-sm"
                 >
                     Submit Now
                 </button>

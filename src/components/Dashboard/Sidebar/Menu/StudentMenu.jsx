@@ -11,7 +11,7 @@ const StudentMenu = () => {
   return (
     <>
       <MenuItem icon={CiPen } label='View Book Session' address='my-bookings'/>
-      <MenuItem icon={CiPen } label='Create Note' address='my-bookings'/>
+      <MenuItem icon={CiPen } label='Create Note' address='createNote'/>
       <MenuItem icon={CiPen } label='Manage Notes' address='my-bookings'/>
       <MenuItem icon={CiPen } label='View All Materials' address='my-bookings'/>
     </>

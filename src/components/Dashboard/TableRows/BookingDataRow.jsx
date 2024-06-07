@@ -18,7 +18,6 @@ const BookingDataRow = () => {
   //     return data
   //   },
   //   onSuccess: async data => {
-  //     console.log(data)
   //     refetch()
   //     toast.success('Booking Canceled')
   //     //   Change Room booked status back to false
@@ -30,11 +29,9 @@ const BookingDataRow = () => {
 
   // //  Handle Delete
   // const handleDelete = async id => {
-  //   console.log(id)
   //   try {
   //     await mutateAsync(id)
   //   } catch (err) {
-  //     console.log(err)
   //   }
   // }
 
@@ -97,7 +94,7 @@ const BookingDataRow = () => {
         >
           <span
             aria-hidden='true'
-            className='absolute inset-0 bg-[#42CE9F] rounded-full'
+            className='absolute inset-0 bg-[#42CE9F] rounded-sm'
           ></span>
           <span className='relative text-white'>View Details</span>
         </Link>
