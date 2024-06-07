@@ -6,9 +6,9 @@
 // import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
 
 import { Helmet } from "react-helmet"
-import BookingDataRow from "../../../../components/Dashboard/TableRows/BookingDataRow"
+import ManageNoteRow from "./ManageNoteRow"
 
-const MyBookings = () => {
+const ManageNote = () => {
   // const { user } = useAuth()
   // const axiosSecure = useAxiosSecure()
   // //   Fetch Bookings Data
@@ -29,7 +29,7 @@ const MyBookings = () => {
   return (
     <>
       <Helmet>
-        <title>My Bookings</title>
+        <title>Student | Manage Note</title>
       </Helmet>
 
       <div className='container mx-auto px-4 sm:px-8'>
@@ -43,42 +43,39 @@ const MyBookings = () => {
                       scope='col'
                       className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
                     >
-                      Title
-                    </th>
+                      Email
+                    </th>                      
                     <th
                       scope='col'
                       className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
                     >
-                      Info
-                    </th>
+                      Title
+                    </th>                   
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
                     >
-                      Price
-                    </th>
+                      Description
+                    </th>                   
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
                     >
-                      From
-                    </th>
+                      Update
+                    </th>                   
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
                     >
-                      To
-                    </th>
-                    <th
-                      scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
-                    >
-                      Action
-                    </th>
+                      Delete
+                    </th>                   
                   </tr>
                 </thead>
                 <tbody>
-                  <BookingDataRow/>
+
+                  <ManageNoteRow/>
+
+                  {/* <BookingDataRow/> */}
                   {/* Table Row Data */}
 
                   {/* {bookings.map(booking => (
@@ -98,4 +95,4 @@ const MyBookings = () => {
   )
 }
 
-export default MyBookings
+export default ManageNote

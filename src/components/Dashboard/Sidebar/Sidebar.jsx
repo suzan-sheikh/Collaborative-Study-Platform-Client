@@ -6,10 +6,11 @@ import { NavLink } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import MenuItem from './Menu/MenuItem'
-import HostMenu from './Menu/HostMenu'
+import HostMenu from './Menu/TutorMenu'
 import AdminMenu from './Menu/AdminMenu'
 import { BsGraphUp } from 'react-icons/bs'
 import StudentMenu from './Menu/StudentMenu'
+import TutorMenu from './Menu/TutorMenu';
 
 
 const Sidebar = () => {
@@ -81,7 +82,8 @@ const Sidebar = () => {
               <MenuItem icon={BsGraphUp} address='/dashboard' label='Statistics'/>
 
 
-            <StudentMenu/>
+            {/* <StudentMenu/> */}
+            <TutorMenu/>
              {/* <HostMenu/> */}
             {/* <AdminMenu/>  */}
 

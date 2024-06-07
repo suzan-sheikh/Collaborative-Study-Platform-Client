@@ -10,6 +10,8 @@ import Profile from "../Pages/Dashboard/Common/Profile";
 import MyBookings from "../Pages/Dashboard/Student/BookedSession/MyBookings";
 import SessionDetailed from "../Pages/Dashboard/Student/BookedSession/SessionDetailed";
 import CreateNote from "../Pages/Dashboard/Student/CreateNote/CreateNote";
+import ManageNote from "../Pages/Dashboard/Student/ManageNote/ManageNote";
+import CreateSession from "../Pages/Dashboard/Tuto/CreateSession/CreateSession";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,14 @@ export const router = createBrowserRouter([
       ,{
         path: 'createNote',
         element: <CreateNote/>
+      }      
+      ,{
+        path: 'manageNote',
+        element: <ManageNote/>
+      },
+      {
+        path: 'createSession',
+        element: <CreateSession/>
       }
     ]
   }
