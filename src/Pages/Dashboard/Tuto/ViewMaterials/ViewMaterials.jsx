@@ -1,6 +1,5 @@
 
 import { Helmet } from "react-helmet"
-import ManageNoteRow from "./ViewMaterialsRow"
 import ViewMaterialsRow from "./ViewMaterialsRow"
 
 const ViewMaterials = () => {

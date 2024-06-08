@@ -7,7 +7,7 @@ const AdminMenu = () => {
     <>
       <MenuItem icon={FaUserCog} label='All Users' address='manageUsers' />
       <MenuItem icon={LiaChalkboardTeacherSolid} label='All Study Session' address='manageSession' />
-      <MenuItem icon={DiMaterializecss} label='All Materials' address='adminMaterials' />
+      <MenuItem icon={DiMaterializecss} label='All Materials' address='manageMaterials' />
     </>
   )
 }

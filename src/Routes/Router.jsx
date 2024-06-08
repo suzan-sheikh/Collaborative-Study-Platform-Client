@@ -14,9 +14,10 @@ import ManageNote from "../Pages/Dashboard/Student/ManageNote/ManageNote";
 import CreateSession from "../Pages/Dashboard/Tuto/CreateSession/CreateSession";
 import ViewAllSession from "../Pages/Dashboard/Tuto/ViewAllSession/ViewAllSession";
 import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMaterials";
-import ViewMaterials from "../Pages/Dashboard/Tuto/ManageNote/ViewMaterials";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageSession from "../Pages/Dashboard/Admin/AllSession/ManageSession";
+import ViewMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/ViewMaterials";
+import ManageMaterials from "../Pages/Dashboard/Admin/ManageMaterials/MangageMaterials";
 
 export const router = createBrowserRouter([
   {
@@ -92,6 +93,10 @@ export const router = createBrowserRouter([
       {
         path: 'manageSession',
         element: <ManageSession/>
+      },
+      {
+        path: 'manageMaterials',
+        element: <ManageMaterials/>
       }
     ]
   }
