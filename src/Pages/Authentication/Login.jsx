@@ -1,28 +1,52 @@
-import { Link, useLocation, useNavigate} from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import useAxiosCommon from "../../hooks/useAxiosCommon";
 
 const Login = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state || '/';
-
+  const from = location.state || "/";
+  const axiosCommon = useAxiosCommon();
   const { signIn, signInWithGoogle, githubSignIn, user, loading } = useAuth();
 
-  const handleSignIn = async (socialProvider) => {
-    try{
-      await socialProvider()
-      navigate(from, { replace: true })
-      toast.success('SignUp Successful')
-      
-    }catch (err) {
-      toast.error(err.message)
-    }   
+  const saveUser = async (user) => {
+    const loginUser = {
+      name: user?.displayName,
+      email: user?.email,
+      role: "student",
+    };
+    const { data } = await axiosCommon.put("/user", loginUser);
+    return data;
+  };  
+
+  const handleSignIn = (socialProvider) => {
+    socialProvider()
+      .then((result) => {
+        toast.success("Login Successfully");
+        if (result.user) {
+          saveUser(result?.user)
+          navigate(from, { replace: true });
+        } 
+        reset()
+      })
+      .catch((error) => {
+        toast.error("Login failed");
+        console.error(error);
+      });
   };
+
+  // const handleSignIn = async (socialProvider) => {
+  //   try {
+  //     await socialProvider();  
+  //     navigate(from, { replace: true });
+  //     toast.success("SignUp Successful");
+  //   } catch (err) {
+  //     toast.error(err.message);
+  //   }
+  // };
 
   const {
     register,
@@ -35,14 +59,7 @@ const Login = () => {
     const { email, password } = data;
     try {
       //User Login
-      const result = await signIn(email, password);
-       await axios.post(
-        `${import.meta.env.VITE_API_URL}/jwt`,
-        {
-          email: result?.user?.email,
-        },
-        { withCredentials: true }
-      );
+      await signIn(email, password);
       navigate(from, { replace: true });
       toast.success("Login Successful");
       reset();
@@ -96,8 +113,12 @@ const Login = () => {
             onClick={() => handleSignIn(githubSignIn)}
             className="flex cursor-pointer items-center justify-center mt-4 text-white transition-colors duration-300 transform border rounded-lg hover:bg-gray-50 "
           >
-            <div className="px-2 py-1 max-w-9">  
-              <img className="w-full" src="https://img.icons8.com/?size=100&id=21276&format=png&color=000000" alt="image" />
+            <div className="px-2 py-1 max-w-9">
+              <img
+                className="w-full"
+                src="https://img.icons8.com/?size=100&id=21276&format=png&color=000000"
+                alt="image"
+              />
             </div>
 
             <span className="w-5/6 px-4 py-1 font-bold text-center hover:text-gray-500">

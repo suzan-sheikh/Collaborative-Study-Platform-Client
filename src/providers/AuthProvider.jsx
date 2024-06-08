@@ -57,17 +57,8 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setLoading(true);
-    // const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-    // });
-    // console.log(data);
     return signOut(auth);
   };
-
-
-
-
-
-
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
@@ -75,26 +66,12 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     });
   };
-  // save user
-  const saveUser = async (user) => {
-    const currentUser = {
-      email: user?.email,
-      role: "student",
-      status: "Verified",
-    };
-    const { data } = await axios.put(
-      `${import.meta.env.VITE_API_URL}/user`,
-      currentUser
-    );
-    return data;
-  };
   
   // onAuthStateChange and Get token from server     ---------> OK
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        saveUser(currentUser);
         // get token and store client
         const userInfo = {email: currentUser?.email}
         axiosCommon.post('/jwt', userInfo)

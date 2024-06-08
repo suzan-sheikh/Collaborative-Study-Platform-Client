@@ -3,15 +3,15 @@ import logo from "../../assets/images/logo.png";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import useAuth from "../../hooks/useAuth";
-import axios from "axios";
+import useAxiosCommon from "../../hooks/useAxiosCommon";
 
 const Register = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state || "/";
 
+  const axiosCommon = useAxiosCommon();
   const { setUser, updateUserProfile, createUser, user, loading } = useAuth();
-
   const {
     register,
     reset,
@@ -19,37 +19,27 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
-
-
-    // save user
-    const saveUser = async (user) => {
-      const currentUser = {
-        email: user?.email,
-        role: "student",
-        status: "Verified",
-      };
-      const { data } = await axios.put(
-        `${import.meta.env.VITE_API_URL}/user`,
-        currentUser
-      );
-      return data;
+  const saveUser = async (userInfo) => {
+    const registerUser = {
+      name: userInfo?.name,
+      email: userInfo?.email,
+      role: userInfo?.role,
     };
+    const { data } = await axiosCommon.put("/user", registerUser);
+    return data;
+  };
 
-  
   const onSubmit = async (data) => {
-    const { name, photoURL, email, password } = data;
-
+    const { name, photoURL, email, password, role } = data;
+    const userInfo = { name, email, role };
     try {
       //2. User Registration
       const result = await createUser(email, password);
-
       await updateUserProfile(name, photoURL);
       // Optimistic UI Update
       setUser({ ...result?.user, photoURL: photoURL, displayName: name });
       toast.success("SignUp Successful");
-      
-      saveUser(currentUser);   
-   
+      saveUser(userInfo);
       reset();
       navigate(from, { replace: true });
     } catch (err) {
@@ -58,7 +48,6 @@ const Register = () => {
   };
 
   if (user && loading) return;
-
   return (
     <div className="flex justify-center items-center mx-auto my-4 container px-4 mt-20">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden rounded-lg shadow-lg lg:max-w-4xl bg-[#006961] bg-no-repeat bg-cover">
@@ -168,7 +157,7 @@ const Register = () => {
                   id="role"
                   {...register("role")}
                   className="border p-1 rounded-md"
-                >                  
+                >
                   <option value="student">Student</option>
                   <option value="tutor">Tutor</option>
                   <option value="Admin">Admin</option>
