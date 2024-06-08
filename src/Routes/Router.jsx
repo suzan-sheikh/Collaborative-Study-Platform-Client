@@ -14,6 +14,9 @@ import ManageNote from "../Pages/Dashboard/Student/ManageNote/ManageNote";
 import CreateSession from "../Pages/Dashboard/Tuto/CreateSession/CreateSession";
 import ViewAllSession from "../Pages/Dashboard/Tuto/ViewAllSession/ViewAllSession";
 import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMaterials";
+import ViewMaterials from "../Pages/Dashboard/Tuto/ManageNote/ViewMaterials";
+import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
+import ManageSession from "../Pages/Dashboard/Admin/AllSession/ManageSession";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +80,18 @@ export const router = createBrowserRouter([
       {
         path: 'uploadMaterials',
         element: <UploadMaterials/>
+      }
+      ,{
+        path: 'viewMaterials',
+        element: <ViewMaterials/>
+      }
+      ,{
+        path: 'manageUsers',
+        element: <ManageUsers/>
+      },
+      {
+        path: 'manageSession',
+        element: <ManageSession/>
       }
     ]
   }
