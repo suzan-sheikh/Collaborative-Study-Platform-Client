@@ -19,6 +19,22 @@ const Register = () => {
     formState: { errors },
   } = useForm();
 
+
+
+    // save user
+    const saveUser = async (user) => {
+      const currentUser = {
+        email: user?.email,
+        role: "student",
+        status: "Verified",
+      };
+      const { data } = await axios.put(
+        `${import.meta.env.VITE_API_URL}/user`,
+        currentUser
+      );
+      return data;
+    };
+
   
   const onSubmit = async (data) => {
     const { name, photoURL, email, password } = data;
@@ -31,14 +47,9 @@ const Register = () => {
       // Optimistic UI Update
       setUser({ ...result?.user, photoURL: photoURL, displayName: name });
       toast.success("SignUp Successful");
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/jwt`,
-        {
-          email: result?.user?.email,
-        },
-        { withCredentials: true }
-      );
       
+      saveUser(currentUser);   
+   
       reset();
       navigate(from, { replace: true });
     } catch (err) {
@@ -157,13 +168,10 @@ const Register = () => {
                   id="role"
                   {...register("role")}
                   className="border p-1 rounded-md"
-                >
-                  <option value="On Site" className="bg-green">
-                    On Site
-                  </option>
-                  <option value="Remote">Remote</option>
-                  <option value="Part Time">Part Time</option>
-                  <option value="Hybrid">Hybrid</option>
+                >                  
+                  <option value="student">Student</option>
+                  <option value="tutor">Tutor</option>
+                  <option value="Admin">Admin</option>
                 </select>
               </div>
             </div>

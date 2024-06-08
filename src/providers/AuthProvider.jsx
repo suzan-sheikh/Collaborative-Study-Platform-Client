@@ -14,6 +14,7 @@ import {
 } from "firebase/auth";
 import axios from "axios";
 import { app } from "../firebase/firebase.config";
+import useAxiosCommon from "../hooks/useAxiosCommon";
 
 export const AuthContext = createContext(null);
 
@@ -25,6 +26,9 @@ const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const axiosCommon = useAxiosCommon();
+
 
   const signInWithGoogle = () => {
     setLoading(true);
@@ -53,14 +57,17 @@ const AuthProvider = ({ children }) => {
 
   const logOut = async () => {
     setLoading(true);
-    const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-      withCredentials: true,
-    });
-    console.log(data);
+    // const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
+    // });
+    // console.log(data);
     return signOut(auth);
   };
 
-  
+
+
+
+
+
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
@@ -68,16 +75,6 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     });
   };
-  // Get token from server
-  const getToken = async (email) => {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_API_URL}/jwt`,
-      { email },
-      { withCredentials: true }
-    );
-    return data;
-  };
-
   // save user
   const saveUser = async (user) => {
     const currentUser = {
@@ -91,21 +88,32 @@ const AuthProvider = ({ children }) => {
     );
     return data;
   };
-
-  // onAuthStateChange
+  
+  // onAuthStateChange and Get token from server     ---------> OK
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       if (currentUser) {
-        getToken(currentUser.email);
         saveUser(currentUser);
+        // get token and store client
+        const userInfo = {email: currentUser?.email}
+        axiosCommon.post('/jwt', userInfo)
+        .then(res => {
+          if(res.data.token){            
+            localStorage.setItem('access-token', res.data.token)
+            setLoading(false);
+          }
+        })
       }
-      setLoading(false);
+      else{
+        // TODO: remove token (if token stored in the client side)
+        localStorage.removeItem('access-token')
+      }      
     });
     return () => {
       return unsubscribe();
     };
-  }, []);
+  }, [axiosCommon]);
 
   const authInfo = {
     user,

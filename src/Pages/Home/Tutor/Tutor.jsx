@@ -1,19 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosCommon from "../../../hooks/useAxiosCommon";
 import Loader from "../../Loader/Loader";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Tutor = () => {
 
-    const axiosCommon = useAxiosCommon()
+  const axiosSecure = useAxiosSecure()
+
+  const {user, loading} = useAuth()
 
     const {
-        data: user = {},
+        data: userData = {},
         isLoading,
       } = useQuery({
-        queryKey: ['user'],
+        queryKey: ['user'], enabled:!loading,
         queryFn: async () => {
-          const { data } = await axiosCommon.get(`/user`)
+          const { data } = await axiosSecure.get('/user')
           return data
         },
       })
@@ -24,7 +27,7 @@ const Tutor = () => {
     return (
         <div>
             <h2 className="text-center text-2xl">Tutor Section </h2>            
-            <h2 className="text-center text-2xl">Total User is : {user.length}</h2>            
+            <h2 className="text-center text-2xl">Total User is : {userData.length}</h2>            
         </div>
     );
 };
