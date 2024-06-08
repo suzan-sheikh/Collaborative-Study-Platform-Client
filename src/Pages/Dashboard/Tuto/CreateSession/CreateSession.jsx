@@ -3,18 +3,82 @@ import { Helmet } from "react-helmet";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
+import useAxiosCommon from "../../../../hooks/useAxiosCommon";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import useAuth from "../../../../hooks/useAuth";
 
 const CreateSession = () => {
   const [postDate, setPostDate] = useState(new Date());
   const [dedLine, setDedLine] = useState(new Date());
   const [classStart, setClassStart] = useState(new Date());
   const [classEnd, setClassEnd] = useState(new Date());
+  const axiosCommon = useAxiosCommon();
+  const navigate = useNavigate();
+
+  const { user} = useAuth();
+
+  const regStart = postDate.toLocaleDateString();
+  const regEnd = dedLine.toLocaleDateString();
+  const classStartDate = classStart.toLocaleDateString();
+  const classEndDate = classEnd.toLocaleDateString();
+  
+
+  const userInfo = {
+    tutorName: user?.displayName,
+    tutorEmail: user?.email,
+    fee: 0,
+    status: "pending",
+  };
+  const { tutorName, tutorEmail, fee, status} = userInfo;
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
+  // const saveUser = async (sessionInfo) => {
+  //   const { data } = await axiosCommon.post("/user", sessionInfo);
+  //   toast.success("create Session Successful");
+  //   return data;
+  // };
+
+  const saveUser = async (sessionInfo) => {
+    try {
+      const { data } = await axiosCommon.post("/session", sessionInfo);
+      toast.success("Create session successful");
+      return data;
+    } catch (error) {
+      console.error("Error saving user:", error);
+      toast.error("Failed to create session");
+      throw error; // Rethrow the error if you need further handling elsewhere
+    }
+  };
+  const onSubmit = async (data) => {
+    const { title, duration, description } = data;
+    const sessionInfo = {
+      title,
+      duration,
+      description,
+      regStart,
+      regEnd,
+      classStartDate,
+      classEndDate,
+      tutorName,
+      tutorEmail,
+      fee,
+      status
+    };
+    try {
+      saveUser(sessionInfo);
+      reset();
+      navigate('/dashboard/allSession');
+    } catch (err) {
+      toast.error("Create Session fail!");
+    }
+  };
 
   return (
     <>
@@ -24,10 +88,7 @@ const CreateSession = () => {
       <div className="flex justify-center items-center mx-auto container px-4">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden shadow-lg lg:max-w-4xl bg-[#006961] bg-no-repeat bg-cover">
           <div className="w-full px-6 py-8 md:px-8 mx-auto">
-            <form
-            // data-aos="fade-left"
-            // onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <h2 className="text-lg font-semibold text-white uppercase text-center ">
                 Create Study Session
               </h2>
@@ -65,7 +126,7 @@ const CreateSession = () => {
                     type="email"
                     name="email"
                     disabled
-                    defaultValue={"your@mail.com"}
+                    defaultValue={user?.email}
                     className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
                   />
                 </div>
@@ -75,7 +136,7 @@ const CreateSession = () => {
                     type="name"
                     name="name"
                     disabled
-                    defaultValue={"suzan"}
+                    defaultValue={user?.displayName}
                     className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
                   />
                 </div>
@@ -114,6 +175,18 @@ const CreateSession = () => {
                 </div>
               </div>
 
+              <div className="mt-2">
+                  <label className="text-white">Registration Fee</label>
+                  <input
+                    id="fee"
+                    type="fee"
+                    name="fee"
+                    disabled
+                    defaultValue={0}
+                    className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                  />
+                </div>
+
               <div className="my-2">
                 <textarea
                   name="description"
@@ -128,7 +201,7 @@ const CreateSession = () => {
                   Add Now
                 </button>
               </div>
-            </form>            
+            </form>
           </div>
         </div>
       </div>

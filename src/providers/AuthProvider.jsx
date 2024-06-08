@@ -12,7 +12,6 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import axios from "axios";
 import { app } from "../firebase/firebase.config";
 import useAxiosCommon from "../hooks/useAxiosCommon";
 

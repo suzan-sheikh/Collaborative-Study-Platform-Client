@@ -37,17 +37,6 @@ const Login = () => {
         console.error(error);
       });
   };
-
-  // const handleSignIn = async (socialProvider) => {
-  //   try {
-  //     await socialProvider();  
-  //     navigate(from, { replace: true });
-  //     toast.success("SignUp Successful");
-  //   } catch (err) {
-  //     toast.error(err.message);
-  //   }
-  // };
-
   const {
     register,
     reset,
