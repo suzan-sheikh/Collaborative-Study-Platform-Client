@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosCommon from "../../../../hooks/useAxiosCommon";
 import toast from "react-hot-toast";
@@ -12,56 +11,44 @@ const UploadMaterials = () => {
   const navigate = useNavigate();
   const axiosCommon = useAxiosCommon();
 
+  const { tutorEmail, _id } = useLoaderData();
 
-  const {title, tutorEmail, _id} = useLoaderData();
-
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  // const saveUser = async (sessionInfo) => {
-  //   try {
-  //     const { data } = await axiosCommon.post("/session", sessionInfo);
-  //     toast.success("Create session successful");
-  //     return data;
-  //   } catch (error) {
-  //     console.error("Error saving user:", error);
-  //     toast.error("Failed to create session");
-  //     throw error; // Rethrow the error if you need further handling elsewhere
-  //   }
-  // };
-
-
-  console.log('From upload component', imagePreview);
-  const onSubmit = async (data) => {
-    const { link} = data;
-
-    const image_url = await imageUpload(imagePreview)
-
-    console.log(image_url);
-
-    const sessionInfo = {
-      title,
-      sessionID: _id,
-      tutorEmail,
-      link,
-      imageLink: imagePreview
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const image = form.image.files[0];
+    const title = form.title.value;
+    const link = form.link.value;
     try {
-      // console.log(sessionInfo);
-      // saveUser(sessionInfo);
-      reset();
-      // navigate('/dashboard/allSession');
+      // upload image and get image url
+      const image_url = await imageUpload(image);
+      // create sessionInfo
+      const sessionInfo = {
+        title,
+        sessionID: _id,
+        tutorEmail,
+        imageURL: image_url,
+        DriveLink: link,
+      };
+      await saveUser(sessionInfo);
     } catch (err) {
-      toast.error("Create Session fail!");
+      console.log(err);
+      toast.error(err.message);
     }
   };
 
-
-
+  const saveUser = async (sessionInfo) => {
+    try {
+      const { data } = await axiosCommon.post("/materials", sessionInfo);
+      toast.success("Create material successful");
+      navigate("/dashboard/uploadMaterials");
+      return data;
+    } catch (error) {
+      console.error("Error saving material:", error);
+      toast.error("Failed to create material");
+      throw error;
+    }
+  };
   return (
     <>
       <Helmet>
@@ -70,7 +57,7 @@ const UploadMaterials = () => {
       <div className="flex justify-center items-center mx-auto container px-4">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden shadow-lg lg:max-w-4xl bg-[#006961] bg-no-repeat bg-cover">
           <div className="w-1/2 px-6 py-8 md:px-8 mx-auto">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit}>
               <div className="mt-2">
                 <input
                   id="title"
@@ -78,18 +65,14 @@ const UploadMaterials = () => {
                   placeholder="Enter Your Note Title"
                   className="block w-full px-4 py-1 rounded-sm text-gray-500 bg-white  border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
-                  {...register("title", { required: true })}
                 />
-                {errors.title && (
-                  <span className="text-primary">This field is required</span>
-                )}
               </div>
               <div className="mt-2">
                 <input
                   id="email"
                   name="email"
-                    disabled
-                    defaultValue={_id}
+                  disabled
+                  defaultValue={_id}
                   className="block w-full px-4 py-1 text-gray-700 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
                   type="email"
                 />
@@ -98,8 +81,8 @@ const UploadMaterials = () => {
                 <input
                   id="email"
                   name="email"
-                    disabled
-                    defaultValue={tutorEmail}
+                  disabled
+                  defaultValue={tutorEmail}
                   className="block w-full px-4 py-1 text-gray-700 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
                   type="email"
                 />
@@ -134,11 +117,7 @@ const UploadMaterials = () => {
                   placeholder="Enter Google Drive Link"
                   className="block w-full px-4 py-1 rounded-sm text-gray-500 bg-white  border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
-                  {...register("link", { required: true })}
                 />
-                {errors.link && (
-                  <span className="text-primary">This field is required</span>
-                )}
               </div>
               <div className="mt-2">
                 <button

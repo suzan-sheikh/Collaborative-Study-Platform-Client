@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 import { GoUpload } from "react-icons/go";
 import { Link } from "react-router-dom";
 
-const ApprovedSessionRow = ({ refetch, session, index }) => {
+
+// you can create refetch data  {refetch}
+const ApprovedSessionRow = ({session, index }) => {
   return (
     <tr>
       <td className="px-2 py-2 border-b border-gray-200 bg-white text-sm">
