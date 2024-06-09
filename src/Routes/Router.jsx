@@ -19,11 +19,14 @@ import ViewMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/ViewMaterials";
 import ManageMaterials from "../Pages/Dashboard/Admin/ManageMaterials/MangageMaterials";
 import ViewApprovedSession from "../Pages/Dashboard/Tuto/UploadMaterials/ViewApprovedSession/ViewApprovedSession";
 import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMaterials";
+import UpdateMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/UpdateMaterials";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout/>,
+    errorElement: <ErrorPage/>,
     children: [
         {
             path: '/',
@@ -84,7 +87,7 @@ export const router = createBrowserRouter([
         element: <ViewApprovedSession/>
       },
       {
-        path: 'updateMaterials/:id',
+        path: 'uploadMaterials/:id',
         element: <UploadMaterials/>,
         loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getToID/${params.id}`)
       },
@@ -103,7 +106,12 @@ export const router = createBrowserRouter([
       {
         path: 'manageMaterials',
         element: <ManageMaterials/>
-      }
+      },
+      {
+        path: 'updateMaterial/:id',
+        element: <UpdateMaterials/>,
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/materialToID/${params.id}`)
+      },
     ]
   }
 ]);

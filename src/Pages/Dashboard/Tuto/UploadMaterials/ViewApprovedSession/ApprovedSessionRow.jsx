@@ -35,7 +35,7 @@ const ApprovedSessionRow = ({session, index }) => {
       </td>
       <td className="px-2 py-2  border-b border-gray-200 bg-white text-sm mx-auto">
         <div className="flex justify-center">
-          <Link to={`/dashboard/updateMaterials/${session._id}`}>
+          <Link to={`/dashboard/uploadMaterials/${session._id}`}>
             <button className="bg-[#003430] hover:bg-[#42CE9F] px-3 py-1 transition-all text-white rounded-sm flex items-center gap-2">
               <GoUpload className="text-lg" />
               Upload Materials
