@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import UpdateUserModal from "./UpdateUserModal";
 
-const MangeUserRow = ({user, refetch, index}) => {
+const MangeUserRow = ({user, refetch, index, getData}) => {
 
   const {user: loggedInUser} = useAuth()
   const axiosSecure = useAxiosSecure()
@@ -23,6 +23,7 @@ const MangeUserRow = ({user, refetch, index}) => {
       toast.success('role updated')
       // refetch()
       setIsOpen(false)
+      getData()
     }
   })
   const modalHandler = (selected) => {
