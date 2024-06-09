@@ -21,12 +21,10 @@ const MangeUserRow = ({user, refetch, index}) => {
     onSuccess: data => {
       console.log(data);
       toast.success('role updated')
-      refetch()
+      // refetch()
       setIsOpen(false)
     }
   })
-
-
   const modalHandler = (selected) => {
       console.log(loggedInUser, user?.email);
     if(loggedInUser?.email === user?.email) {
@@ -39,9 +37,6 @@ const MangeUserRow = ({user, refetch, index}) => {
     }
     mutateAsync(role)
   };
-
-
-
   return (
     <tr>
       <td className="px-2 py-2 border-b border-gray-200 bg-white text-sm">

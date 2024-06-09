@@ -10,6 +10,7 @@ import AdminMenu from './Menu/AdminMenu'
 import { BsGraphUp } from 'react-icons/bs'
 import StudentMenu from './Menu/StudentMenu'
 import TutorMenu from './Menu/TutorMenu';
+import logo from '../../../assets/images/logo.png';
 
 
 const Sidebar = () => {
@@ -33,7 +34,7 @@ const Sidebar = () => {
             <Link to='/'>
               <img
                 // className='hidden md:block'
-                src='https://i.ibb.co/qJtzb0J/logo.png'
+                src={logo}
                 alt='logo'
                 width='100'
                 height='100'
@@ -62,7 +63,7 @@ const Sidebar = () => {
               <Link to='/'>
                 <img
                   // className='hidden md:block'
-                  src='https://i.ibb.co/qJtzb0J/logo.png'
+                  src={logo}
                   alt='logo'
                   width='100'
                   height='100'
