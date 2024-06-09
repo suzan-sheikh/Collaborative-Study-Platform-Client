@@ -39,12 +39,6 @@ const CreateSession = () => {
     formState: { errors },
   } = useForm();
 
-  // const saveUser = async (sessionInfo) => {
-  //   const { data } = await axiosCommon.post("/user", sessionInfo);
-  //   toast.success("create Session Successful");
-  //   return data;
-  // };
-
   const saveUser = async (sessionInfo) => {
     try {
       const { data } = await axiosCommon.post("/session", sessionInfo);

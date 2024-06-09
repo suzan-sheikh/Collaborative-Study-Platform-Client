@@ -16,6 +16,9 @@ const Tutor = () => {
     },
   });
 
+  console.log(userData); 
+
+
   if (isLoading) return <Loader />;
 
   return (

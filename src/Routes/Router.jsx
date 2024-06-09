@@ -13,11 +13,12 @@ import CreateNote from "../Pages/Dashboard/Student/CreateNote/CreateNote";
 import ManageNote from "../Pages/Dashboard/Student/ManageNote/ManageNote";
 import CreateSession from "../Pages/Dashboard/Tuto/CreateSession/CreateSession";
 import ViewAllSession from "../Pages/Dashboard/Tuto/ViewAllSession/ViewAllSession";
-import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMaterials";
 import ManageUsers from "../Pages/Dashboard/Admin/ManageUsers/ManageUsers";
 import ManageSession from "../Pages/Dashboard/Admin/AllSession/ManageSession";
 import ViewMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/ViewMaterials";
 import ManageMaterials from "../Pages/Dashboard/Admin/ManageMaterials/MangageMaterials";
+import ViewApprovedSession from "../Pages/Dashboard/Tuto/UploadMaterials/ViewApprovedSession/ViewApprovedSession";
+import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMaterials";
 
 export const router = createBrowserRouter([
   {
@@ -80,9 +81,14 @@ export const router = createBrowserRouter([
       },
       {
         path: 'uploadMaterials',
-        element: <UploadMaterials/>
-      }
-      ,{
+        element: <ViewApprovedSession/>
+      },
+      {
+        path: 'updateMaterials/:id',
+        element: <UploadMaterials/>,
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getToID/${params.id}`)
+      },
+      {
         path: 'viewMaterials',
         element: <ViewMaterials/>
       }

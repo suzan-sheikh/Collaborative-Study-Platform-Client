@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet";
 import { useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
 
 const UploadMaterials = () => {
   const [imagePreview, setImagePreview] = useState();
+  const {title, tutorEmail, _id} = useLoaderData();
+
+
+  console.log(title, tutorEmail, _id, status);
 
   const {
     register,
