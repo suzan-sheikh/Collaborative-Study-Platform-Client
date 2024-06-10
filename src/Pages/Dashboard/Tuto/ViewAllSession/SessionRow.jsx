@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
 
 const SessionRow = ({ refetch, session, index }) => {
+
+  
+
+
   return (
     <tr>
       <td className="px-2 py-2 border-b border-gray-200 bg-white text-sm">
