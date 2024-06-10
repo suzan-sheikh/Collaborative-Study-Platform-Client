@@ -1,13 +1,13 @@
 import { NavLink, Link } from "react-router-dom";
 import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
-import {useState } from "react";
+import { useState } from "react";
 import ResponsiveMenu from "./ResponsiveMenu";
 import logo from "../../../assets/images/logo.png";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const { user, logOut, createUser} = useAuth()  
+  const { user, logOut, createUser } = useAuth();
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -40,7 +40,6 @@ const Navbar = () => {
           Dashboard
         </NavLink>
       </li>
-
     </>
   );
 
@@ -63,66 +62,70 @@ const Navbar = () => {
               <ul className="flex items-center gap-6 ">{navLink}</ul>
             </div>
             <div className="flex items-center gap-4 justify-center">
-              <ul className="menu menu-horizontal px-1">
+              <ul className="flex items-center gap-4">
                 {!user && (
                   <>
                     <li className="flex gap-2">
-                      <Link to="login" className="text-[#282828] font-md text-lg">Login</Link>
+                      <Link
+                        to="login"
+                        className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
+                      >
+                        Login
+                      </Link>
                     </li>
                     <li className="flex gap-2">
-                      <Link to="register" className="text-[#282828] font-md text-lg">Register</Link>
+                      <NavLink
+                        to="register"
+                        className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
+                      >
+                        Sign-up
+                      </NavLink>
                     </li>
                   </>
                 )}
               </ul>
 
               {user && (
-                <div className="dropdown dropdown-end z-50">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-circle avatar"
-                  >
+                <div className="flex gap-4 items-center">
+                  <div className="hidden md:block">
+                    <ul className="flex items-center gap-6 ">
+                      <li className="py-4">
+                        <NavLink
+                          to="/dashboard"
+                          className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
+                        >
+                          Dashboard
+                        </NavLink>
+                      </li>
+                      <li className="py-4">
+                        <button
+                          onClick={logOut}
+                          className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="dropdown dropdown-end z-50">
                     <div
-                      title={user?.displayName}
-                      className="w-10 rounded-full"
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-circle avatar"
                     >
-                      <img
-                        referrerPolicy="no-referrer"
-                        alt="User Profile Photo"
-                        src={user?.photoURL}
-                      />
+                      <div
+                        title={user?.displayName}
+                        className="w-10 rounded-full"
+                      >
+                        <img
+                          referrerPolicy="no-referrer"
+                          alt="User Profile Photo"
+                          src={user?.photoURL}
+                        />
+                      </div>
                     </div>
                   </div>
-                  <ul
-                    tabIndex={0}
-                    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-                  >
-                    <li>
-                      <Link to="/addJobs">
-                        <div>Add A Job</div>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/myJobs">
-                        <div>My Jobs</div>
-                      </Link>
-                    </li>
-
-                    <li>
-                      <Link to="/appliedJobs">
-                        <div>Applied Jobs</div>
-                      </Link>
-                    </li>
-                    <li className="mt-2">
-                      <button
-                        onClick={logOut}
-                        className="bg-gray-200 block text-center"
-                      >
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
                 </div>
               )}
               {/* Mobile Hamburger icon */}

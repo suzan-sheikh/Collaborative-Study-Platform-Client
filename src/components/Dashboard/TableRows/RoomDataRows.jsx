@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@headlessui/react'
 import DeleteModal from '../../Modal/DeleteModal'
-import UpdateRoomModal from '../../Modal/UpdateRoomModal'
+import UpdateSessionModal from '../../Modal/UpdateSessionModal'
 const RoomDataRow = ({ room, handleDelete, refetch }) => {
   // for delete modal
   const [isOpen, setIsOpen] = useState(false)
@@ -83,7 +83,7 @@ const RoomDataRow = ({ room, handleDelete, refetch }) => {
           <span className='relative'>Update</span>
         </button>
         {/* Update Modal */}
-        <UpdateRoomModal
+        <UpdateSessionModal
           isOpen={isEditModalOpen}
           setIsEditModalOpen={setIsEditModalOpen}
           room={room}

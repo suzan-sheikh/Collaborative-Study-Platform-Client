@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../Loader/Loader";
 
 const ViewMaterials = () => {
+  
   const axiosCommon = useAxiosCommon();
 
   const {

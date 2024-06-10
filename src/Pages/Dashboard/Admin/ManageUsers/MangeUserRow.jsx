@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import UpdateUserModal from "./UpdateUserModal";
 
-const MangeUserRow = ({user, refetch, index, getData}) => {
+const MangeUserRow = ({user, index, getData}) => {
 
   const {user: loggedInUser} = useAuth()
   const axiosSecure = useAxiosSecure()
@@ -38,6 +38,9 @@ const MangeUserRow = ({user, refetch, index, getData}) => {
     }
     mutateAsync(role)
   };
+
+
+
   return (
     <tr>
       <td className="px-2 py-2 border-b border-gray-200 bg-white text-sm">
@@ -82,6 +85,7 @@ MangeUserRow.propTypes = {
   user: PropTypes.object,
   index: PropTypes.number,
   refetch: PropTypes.func,
+  getData: PropTypes.func,
 };
 
 export default MangeUserRow;
