@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-const RejectedSessionForm = ({ handleSubmit }) => {
+const RejectedSessionForm = ({ handleSubmit}) => {
   return (
     <div className="w-full text-gray-800 rounded-xl bg-gray-50">
       <form onSubmit={handleSubmit}>

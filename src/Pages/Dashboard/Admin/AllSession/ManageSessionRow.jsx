@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { RxCross1 } from "react-icons/rx";
@@ -7,9 +6,10 @@ import { GoPencil } from "react-icons/go";
 import UpdateSessionModal from "./UpdateSessionModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import RejectedSessionModal from "./RejectedSessionModal";
+import { useState } from "react";
+import UpdateApprovedModal from "./UpdateApprovedModal";
 
 const formatDate = (dateString) => {
   try {
@@ -26,6 +26,7 @@ const formatDate = (dateString) => {
 const ManageSessionRow = ({ session, refetch, index }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [rejectedModalOpen, setRejectedModalOpen] = useState(false);
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 
@@ -128,9 +129,18 @@ const ManageSessionRow = ({ session, refetch, index }) => {
       {status === "approved" && (
         <>
           <td>
-            <button className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center">
+            <button
+              onClick={() => setUpdateModalOpen(true)}
+              className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center"
+            >
               <GoPencil className="text-white text-lg font-black" />
             </button>
+            <UpdateApprovedModal
+              isOpen={updateModalOpen}
+              setUpdateModalOpen={setUpdateModalOpen}
+              session={session}
+              refetch={refetch}
+            />
           </td>
           <td>
             <button className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center">
@@ -160,7 +170,6 @@ const ManageSessionRow = ({ session, refetch, index }) => {
             />
           </td>
           <td>
-            {/* onClick={() => handleRejected()} */}
             <button
               onClick={() => setRejectedModalOpen(true)}
               className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center"

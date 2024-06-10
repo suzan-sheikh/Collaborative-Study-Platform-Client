@@ -10,10 +10,10 @@ import { Fragment } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import RejectedSessionForm from "./RejectedSessionForm";
+import UpdateApprovedForm from "./UpdateApprovedForm";
 
-const RejectedSessionModal = ({
-  setRejectedModalOpen,
+const UpdateApprovedModal = ({
+  setUpdateModalOpen,
   isOpen,
   session,
   refetch,
@@ -33,7 +33,7 @@ const RejectedSessionModal = ({
       console.log(data);
       toast.success("Update Success!");
       refetch();
-      setRejectedModalOpen(false);
+      setUpdateModalOpen(false);
     },
   });
 
@@ -62,7 +62,7 @@ const RejectedSessionModal = ({
       <Dialog
         as="div"
         className="relative z-10"
-        onClose={() => setRejectedModalOpen(false)}
+        onClose={() => setUpdateModalOpen(false)}
       >
         <TransitionChild
           as={Fragment}
@@ -96,14 +96,14 @@ const RejectedSessionModal = ({
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}
-                  <RejectedSessionForm handleSubmit={handleSubmit}>
+                  <UpdateApprovedForm handleSubmit={handleSubmit} refetch={refetch} session={session}/>
                 </div>
                 <hr className="mt-8 " />
                 <div className="mt-2 ">
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    onClick={() => setRejectedModalOpen(false)}
+                    onClick={() => setUpdateModalOpen(false)}
                   >
                     Cancel
                   </button>
@@ -117,11 +117,11 @@ const RejectedSessionModal = ({
   );
 };
 
-RejectedSessionModal.propTypes = {
-  setRejectedModalOpen: PropTypes.func,
+UpdateApprovedModal.propTypes = {
+  setUpdateModalOpen: PropTypes.func,
   isOpen: PropTypes.bool,
   session: PropTypes.Object,
   refetch: PropTypes.func,
 };
 
-export default RejectedSessionModal;
+export default UpdateApprovedModal;
