@@ -1,19 +1,6 @@
-/* eslint-disable react/prop-types */
-// import { categories } from '../Categories/CategoriesData'
-
-const UpdateSessionForm = ({ handleSubmit, setRoomData, roomData }) => {
-  const categories = [
-    {
-      label: "Free",
-    },
-    {
-      label: "Paid",
-    },
-  ];
-  UpdateSessionForm;
-  UpdateSessionForm;
-
-  // const categories = [{free: 'Free'}, {Paid: 'Paid'}]
+import PropTypes from 'prop-types'
+const UpdateSessionForm = ({ handleSubmit, setFeeType, feeType }) => {
+  const categories = [{label: "Paid",},{label: "Free",}];
   return (
     <div className="w-full text-gray-800 rounded-xl bg-gray-50">
       <form onSubmit={handleSubmit}>
@@ -24,9 +11,9 @@ const UpdateSessionForm = ({ handleSubmit, setRoomData, roomData }) => {
             </label>
             <select
               required
-              value={roomData?.category}
+              defaultValue={'Paid'}
               onChange={(e) =>
-                setRoomData({ ...roomData, category: e.target.value })
+                setFeeType(e.target.value)
               }
               className="w-full px-4 py-3 border-rose-300 outline-rose-500 rounded-md border"
               name="category"
@@ -48,10 +35,8 @@ const UpdateSessionForm = ({ handleSubmit, setRoomData, roomData }) => {
                 className="w-full px-4 py-3 text-gray-800 border border-rose-300 focus:outline-rose-500 rounded-md "
                 name="price"
                 id="price"
-                value={roomData?.price}
-                onChange={(e) =>
-                  setRoomData({ ...roomData, price: e.target.value })
-                }
+                disabled={feeType=='Free'}
+                defaultValue={0}
                 type="number"
                 placeholder="Price"
                 required
@@ -70,5 +55,12 @@ const UpdateSessionForm = ({ handleSubmit, setRoomData, roomData }) => {
     </div>
   );
 };
+
+UpdateSessionForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  feeType: PropTypes.object,
+  setFeeType: PropTypes.func,
+  setPrice: PropTypes.func,
+}
 
 export default UpdateSessionForm;
