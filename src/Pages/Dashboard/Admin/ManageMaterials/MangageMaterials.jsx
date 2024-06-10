@@ -1,8 +1,33 @@
 
 import { Helmet } from "react-helmet"
 import ManageMaterialsRow from "./ManageMaterialsRow"
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../../Loader/Loader";
 
 const ManageMaterials = () => {
+
+  const axiosSecure = useAxiosSecure();
+
+  const {
+    data: materials = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["material"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/materials");
+      return data;
+    },
+  });
+
+  console.log(materials);
+  
+  if (isLoading) return <Loader />;
+
+
+
+
   return (
     <>
       <Helmet>
@@ -55,7 +80,13 @@ const ManageMaterials = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <ManageMaterialsRow/>
+                  {materials.map((material) => (
+                    <ManageMaterialsRow
+                      key={material._id}
+                      material={material}
+                      refetch={refetch}
+                    />
+                  ))}
                 </tbody>
               </table>
             </div>
