@@ -5,9 +5,11 @@ import { RxCross1 } from "react-icons/rx";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { GoPencil } from "react-icons/go";
 import UpdateSessionModal from "./UpdateSessionModal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
+import RejectedSessionModal from "./RejectedSessionModal";
 
 const formatDate = (dateString) => {
   try {
@@ -22,9 +24,10 @@ const formatDate = (dateString) => {
 };
 
 const ManageSessionRow = ({ session, refetch, index }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [rejectedModalOpen, setRejectedModalOpen] = useState(false);
+  const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
 
   const {
     title,
@@ -40,27 +43,56 @@ const ManageSessionRow = ({ session, refetch, index }) => {
     status,
   } = session;
 
-  // const { mutateAsync } = useMutation({
-  //   mutationFn: async (role) => {
-  //     const { data } = await axiosSecure.patch(
-  //       `/users/update/${user?.email}`,
-  //       role
-  //     );
-  //     return data;
-  //   },
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //     toast.success("role updated");
-  //     // refetch()
-  //     setIsOpen(false);
-  //   },
-  // });
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ id }) => {
+      const { data } = await axiosSecure.delete(`/deleteSession/${id}`);
+      return data;
+    },
+    onSuccess: () => {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success",
+      });
+      queryClient.invalidateQueries({ queryKey: ["session"] });
+    },
+  });
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await mutateAsync({ id });
+      }
+    });
+  };
 
-  // const modalHandler = (selected) => {
-  //   const role = {
-  //     role: selected,
-  //   };
-  //   mutateAsync(role);
+  // const {mutateAsync} = useMutation({
+  //   mutationFn: async role => {
+  //     const {data} = await axiosSecure.patch(`/users/update/${user?.email}`, role)
+  //     return data
+  //   },
+  //   onSuccess: data => {
+  //     console.log(data);
+  //     toast.success('role updated')
+  //     // refetch()
+  //     setIsOpen(false)
+  //     getData()
+  //   }
+  // })
+
+  // const handleRejected = () => {
+
+  //   const status = {
+  //     status: rejected,
+  //   }
+  //   mutateAsync(status)
   // };
 
   return (
@@ -102,7 +134,10 @@ const ManageSessionRow = ({ session, refetch, index }) => {
           </td>
           <td>
             <button className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center">
-              <RiDeleteBin6Line className="text-white text-lg font-black" />
+              <RiDeleteBin6Line
+                onClick={() => handleDelete(session._id)}
+                className="text-white text-lg font-black"
+              />
             </button>
           </td>
         </>
@@ -125,9 +160,19 @@ const ManageSessionRow = ({ session, refetch, index }) => {
             />
           </td>
           <td>
-            <button className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center">
+            {/* onClick={() => handleRejected()} */}
+            <button
+              onClick={() => setRejectedModalOpen(true)}
+              className="bg-[#003430] hover:bg-[#42CE9F] rounded-sm transition-all py-1 px-2 min-w-10 flex items-center justify-center"
+            >
               <RxCross1 className="text-white text-lg font-black" />
             </button>
+            <RejectedSessionModal
+              isOpen={rejectedModalOpen}
+              setRejectedModalOpen={setRejectedModalOpen}
+              session={session}
+              refetch={refetch}
+            />
           </td>
         </>
       )}

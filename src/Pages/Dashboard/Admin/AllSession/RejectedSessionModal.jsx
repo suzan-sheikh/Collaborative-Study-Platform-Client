@@ -6,28 +6,25 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import toast from "react-hot-toast";
-import UpdateSessionForm from "./UpdateSessionForm";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import RejectedSessionForm from "./RejectedSessionForm";
 
-const UpdateSessionModal = ({
-  setIsEditModalOpen,
+const RejectedSessionModal = ({
+  setRejectedModalOpen,
   isOpen,
   session,
   refetch,
 }) => {
   const axiosSecure = useAxiosSecure();
-  // const axiosCommon = useAxiosCommon();
-
-  const [feeType, setFeeType] = useState("Paid");
 
   const { mutateAsync } = useMutation({
-    mutationFn: async (updateInfo) => {
-      const { data } = await axiosSecure.patch(
-        `/manageAdmin/update/${session?._id}`,
-        updateInfo
+    mutationFn: async (rejectedInfo) => {
+      const { data } = await axiosSecure.put(
+        `/rejectedAdmin/${session?._id}`,
+        rejectedInfo
       );
       console.log(data);
       return data;
@@ -36,28 +33,24 @@ const UpdateSessionModal = ({
       console.log(data);
       toast.success("Update Success!");
       refetch();
-      setIsEditModalOpen(false);
+      setRejectedModalOpen(false);
     },
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const price = form.price.value;
-
+    const reason = form.reason.value;
+    const feedback = form.feedback.value;
     try {
-      const updateInfo = {
-        price: price,
-        feeType: feeType,
-        status: "approved",
+      const rejectedInfo = {
+        reason,
+        feedback,
+        status: "rejected",
       };
 
-      if (price == 0 && feeType == "Paid") {
-        toast.error("Please Enter Session Fee Amount");
-        return;
-      }
-
-      await mutateAsync(updateInfo);
+      console.log(rejectedInfo);
+      await mutateAsync(rejectedInfo);
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -69,7 +62,7 @@ const UpdateSessionModal = ({
       <Dialog
         as="div"
         className="relative z-10"
-        onClose={() => setIsEditModalOpen(false)}
+        onClose={() => setRejectedModalOpen(false)}
       >
         <TransitionChild
           as={Fragment}
@@ -99,22 +92,18 @@ const UpdateSessionModal = ({
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Update Session Info
+                  Rejected Session Info
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}
-                  <UpdateSessionForm
-                    handleSubmit={handleSubmit}
-                    feeType={feeType}
-                    setFeeType={setFeeType}
-                  />
+                  <RejectedSessionForm handleSubmit={handleSubmit} />
                 </div>
                 <hr className="mt-8 " />
                 <div className="mt-2 ">
                   <button
                     type="button"
                     className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
-                    onClick={() => setIsEditModalOpen(false)}
+                    onClick={() => setRejectedModalOpen(false)}
                   >
                     Cancel
                   </button>
@@ -128,11 +117,11 @@ const UpdateSessionModal = ({
   );
 };
 
-UpdateSessionModal.propTypes = {
-  setIsEditModalOpen: PropTypes.func,
+RejectedSessionModal.propTypes = {
+  setRejectedModalOpen: PropTypes.func,
   isOpen: PropTypes.bool,
   session: PropTypes.Object,
   refetch: PropTypes.func,
 };
 
-export default UpdateSessionModal;
+export default RejectedSessionModal;

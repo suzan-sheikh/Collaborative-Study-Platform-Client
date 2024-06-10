@@ -26,10 +26,10 @@ const MangeUserRow = ({user, index, getData}) => {
       getData()
     }
   })
+
   const modalHandler = (selected) => {
       console.log(loggedInUser, user?.email);
     if(loggedInUser?.email === user?.email) {
-
       toast.error('Action Not Allowed')
       return setIsOpen(false)
     }
@@ -38,8 +38,6 @@ const MangeUserRow = ({user, index, getData}) => {
     }
     mutateAsync(role)
   };
-
-
 
   return (
     <tr>
