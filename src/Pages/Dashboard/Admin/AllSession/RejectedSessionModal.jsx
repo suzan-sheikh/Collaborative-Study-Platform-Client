@@ -96,7 +96,7 @@ const RejectedSessionModal = ({
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}
-                  <RejectedSessionForm handleSubmit={handleSubmit}>
+                  <RejectedSessionForm handleSubmit={handleSubmit}/>
                 </div>
                 <hr className="mt-8 " />
                 <div className="mt-2 ">

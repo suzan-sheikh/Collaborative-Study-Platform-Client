@@ -6,7 +6,7 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
@@ -18,39 +18,59 @@ const UpdateApprovedModal = ({
   session,
   refetch,
 }) => {
-  const axiosSecure = useAxiosSecure();
+  // const axiosSecure = useAxiosSecure();
 
-  const { mutateAsync } = useMutation({
-    mutationFn: async (rejectedInfo) => {
-      const { data } = await axiosSecure.put(
-        `/rejectedAdmin/${session?._id}`,
-        rejectedInfo
-      );
-      console.log(data);
-      return data;
-    },
-    onSuccess: (data) => {
-      console.log(data);
-      toast.success("Update Success!");
-      refetch();
-      setUpdateModalOpen(false);
-    },
-  });
+  const [postDate, setPostDate] = useState(session?.regStart);
+  const [dedLine, setDedLine] = useState(session?.regEnd);
+  const [classStart, setClassStart] = useState(session?.classStartDate);
+  const [classEnd, setClassEnd] = useState(session?.classEndDate);
+
+  const [status, setStatus] = useState('pending');
+
+
+  // const { mutateAsync } = useMutation({
+  //   mutationFn: async (rejectedInfo) => {
+  //     const { data } = await axiosSecure.put(
+  //       `/rejectedAdmin/${session?._id}`,
+  //       rejectedInfo
+  //     );
+  //     console.log(data);
+  //     return data;
+  //   },
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //     toast.success("Update Success!");
+  //     refetch();
+  //     setUpdateModalOpen(false);
+  //   },
+  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const reason = form.reason.value;
-    const feedback = form.feedback.value;
+    const title = form.title.value;
+    const duration = form.duration.value;
+    const email = form.email.value;
+    const name = form.name.value;
+    const fee = form.fee.value;
+    const description = form.description.value;
     try {
       const rejectedInfo = {
-        reason,
-        feedback,
-        status: "rejected",
+        title,
+        duration,
+        email, 
+        name, 
+        fee,
+        description,
+        postDate,
+        dedLine,
+        classStart,
+        classEnd,
+        status
       };
 
       console.log(rejectedInfo);
-      await mutateAsync(rejectedInfo);
+      // await mutateAsync(rejectedInfo);
     } catch (err) {
       console.log(err);
       toast.error(err.message);
@@ -92,11 +112,24 @@ const UpdateApprovedModal = ({
                   as="h3"
                   className="text-lg font-medium text-center leading-6 text-gray-900"
                 >
-                  Rejected Session Info
+                  Update Session Info
                 </DialogTitle>
                 <div className="mt-2 w-full">
                   {/* Update room form */}
-                  <UpdateApprovedForm handleSubmit={handleSubmit} refetch={refetch} session={session}/>
+                  <UpdateApprovedForm
+                    handleSubmit={handleSubmit}
+                    refetch={refetch}
+                    session={session}
+                    postDate={postDate}
+                    setPostDate={setPostDate}
+                    dedLine={dedLine}
+                    setDedLine={setDedLine}
+                    classStart={classStart}
+                    setClassStart={setClassStart}
+                    classEnd={classEnd}
+                    setClassEnd={setClassEnd}
+                    setStatus={setStatus}
+                  />
                 </div>
                 <hr className="mt-8 " />
                 <div className="mt-2 ">
