@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 
-const SessionRow = ({ refetch, session, index }) => {
+const SessionRow = ({session, index, handleStatusChange }) => {
 
-  
-
+  const currentStatus = session?.status;
+  const currentId = session?._id;
 
   return (
     <tr>
@@ -33,10 +33,28 @@ const SessionRow = ({ refetch, session, index }) => {
           {session?.status}
         </p>
       </td>
+      <td className="px-2 py-2 border-b border-gray-200 bg-white text-sm">
+        {session?.status == 'rejected' ?         <p className="text-gray-900 whitespace-no-wrap text-center">
+          {session?.reason}
+        </p> : <p className="text-gray-900 whitespace-no-wrap text-center">
+          No Reason
+        </p>}
+
+      </td>
+      <td className="px-2 py-2 border-b border-gray-200 bg-white text-sm">
+      {session?.status == 'rejected' ?         <p className="text-gray-900 whitespace-no-wrap text-center">
+        {session?.feedback}
+        </p> : <p className="text-gray-900 whitespace-no-wrap text-center">
+          No Feedback
+        </p>}
+        <p className="text-gray-900 whitespace-no-wrap text-center">
+          
+        </p>
+      </td>
       <td className="px-2 py-2  border-b border-gray-200 bg-white text-sm mx-auto">
         <div className="flex justify-center">
-          <button className="bg-[#003430] hover:bg-[#42CE9F] px-3 py-1 transition-all text-white rounded-sm">
-            Send Request
+          <button onClick={() => handleStatusChange(currentStatus, currentId)} className="bg-[#003430] hover:bg-[#42CE9F] px-3 py-1 transition-all text-white rounded-sm">
+          sent request
           </button>
         </div>
       </td>
@@ -47,7 +65,7 @@ const SessionRow = ({ refetch, session, index }) => {
 SessionRow.propTypes = {
   session: PropTypes.object,
   index: PropTypes.number,
-  refetch: PropTypes.func,
+  handleStatusChange: PropTypes.func,
 };
 
 export default SessionRow;

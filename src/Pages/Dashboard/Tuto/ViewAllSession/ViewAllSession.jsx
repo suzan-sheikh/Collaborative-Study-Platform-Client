@@ -2,11 +2,15 @@ import { Helmet } from "react-helmet";
 import SessionRow from "./SessionRow";
 
 import Loader from "../../../../Pages/Loader/Loader";
-import useAxiosCommon from "../../../../hooks/useAxiosCommon";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 const ViewAllSession = () => {
-  const axiosCommon = useAxiosCommon();
+  const axiosSecure = useAxiosSecure();
+
+  const [id, setId] = useState()
 
   const {
     data: sessions = [],
@@ -15,12 +19,40 @@ const ViewAllSession = () => {
   } = useQuery({
     queryKey: ["session"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/session");
+      const { data } = await axiosSecure.get("/session");
       return data;
     },
   });
 
-  console.log(sessions);
+  const { mutateAsync } = useMutation({
+    mutationFn: async (status) => {
+      const { data } = await axiosSecure.patch(
+        `/rejectSession/update/${id}`,
+        status
+      );
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Send Request Success");
+      refetch();
+    },
+  });
+
+  const handleStatusChange = (currentStatus, currentId) => {
+    if (currentStatus == 'pending') {
+      toast.error("Only Rejected Session Allow!");
+      return
+    }else if(currentStatus == 'approved'){
+      toast.error("Session Already Approved by Admin!");
+      return
+    }  
+    const status = {
+      status: 'pending',
+    };
+    setId(currentId)
+    mutateAsync(status)
+  };
   if (isLoading) return <Loader />;
 
   return (
@@ -58,19 +90,31 @@ const ViewAllSession = () => {
                       scope="col"
                       className="px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium"
                     >
-                      Approval Request Send to Admin
+                      Rejection Reason
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium"
+                    >
+                      Feedback
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium"
+                    >
+                      Action
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   {sessions.map((session, index) => (
-                    <SessionRow 
-                    key={session._id}
-                    session={session}
-                    refetch={refetch}
-                    index={index}                   
+                    <SessionRow
+                      key={session._id}
+                      session={session}
+                      index={index}
+                      handleStatusChange={handleStatusChange}
                     />
-                  ))}   
+                  ))}
                 </tbody>
               </table>
             </div>

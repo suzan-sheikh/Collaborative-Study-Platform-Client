@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Helmet } from "react-helmet";
 import MangeUserRow from "./MangeUserRow";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
@@ -6,7 +7,7 @@ import { useEffect, useState } from "react";
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
 
-  const [itemPerPage, setItemPerPage] = useState(5);
+  const [itemPerPage, setItemPerPage] = useState(3);
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [jobs, setJobs] = useState([]);
@@ -15,7 +16,7 @@ const ManageUsers = () => {
 
   const getData = async () => {
     const { data } = await axiosSecure(
-      `/allJobs?page=${currentPage}&size=${itemPerPage}&search=${search}`
+      `/allUser?page=${currentPage}&size=${itemPerPage}&search=${search}`
     );
     setJobs(data);
   };
@@ -26,7 +27,7 @@ const ManageUsers = () => {
 
   useEffect(() => {
     const getCount = async () => {
-      const { data } = await axiosSecure(`/jobsCount?search=${search}`);
+      const { data } = await axiosSecure(`/userCount?search=${search}`);
       setCount(data.count);
     };
     getCount();

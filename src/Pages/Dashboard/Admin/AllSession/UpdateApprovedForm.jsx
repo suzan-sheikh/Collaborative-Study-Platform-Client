@@ -26,24 +26,29 @@ const UpdateApprovedForm = ({ handleSubmit, session, refetch, setStatus, postDat
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 gap-3 mt-4 sm:grid-cols-2">
             <div>
+            <label>Session Title</label>
               <input
                 id="title"
                 name="title"
+                defaultValue={session?.title}
                 placeholder="Enter Session Title"
-                className="block w-full px-4 py-1 rounded-sm text-gray-500 bg-white  border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-1 rounded-sm bg-white  border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                 type="text"
               />
             </div>
             <div>
+            <label>Session Duration</label>
               <input
                 id="duration"
                 autoComplete="duration"
+                defaultValue={session?.duration}
                 placeholder="Enter Session Duration"
-                className="block w-full px-4 py-1 rounded-sm text-gray-500 border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-1 rounded-sm border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                 type="text"
               />
             </div>
             <div>
+            <label>Tutor Email</label>
               <input
                 id="email"
                 type="email"
@@ -53,12 +58,13 @@ const UpdateApprovedForm = ({ handleSubmit, session, refetch, setStatus, postDat
               />
             </div>
             <div>
+            <label>Tutor Name</label>
               <input
                 id="name"
                 type="name"
                 name="name"
                 defaultValue={session?.tutorName}
-                className="block w-full px-4 py-1  text-gray-700 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
+                className="block w-full px-4 py-1 bg-white border border-gray-200 rounded-sm  focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40  focus:outline-none focus:ring"
               />
             </div>
             <div className="flex flex-col">
@@ -132,6 +138,7 @@ const UpdateApprovedForm = ({ handleSubmit, session, refetch, setStatus, postDat
             <textarea
               name="description"
               id="description"
+              defaultValue={session?.description}
               className="w-full h-20 px-4 pt-4 focus:border-none focus:outline-none rounded-sm"
               placeholder="Enter You Description"
             ></textarea>

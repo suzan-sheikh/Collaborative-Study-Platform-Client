@@ -18,61 +18,83 @@ const UpdateApprovedModal = ({
   session,
   refetch,
 }) => {
-  // const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
 
-  const [postDate, setPostDate] = useState(session?.regStart);
-  const [dedLine, setDedLine] = useState(session?.regEnd);
-  const [classStart, setClassStart] = useState(session?.classStartDate);
-  const [classEnd, setClassEnd] = useState(session?.classEndDate);
+  const [status, setStatus] = useState(session?.status);
 
-  const [status, setStatus] = useState('pending');
+  const [postDate, setPostDate] = useState(new Date(session?.regStart));
+  const [dedLine, setDedLine] = useState(new Date(session?.regEnd));
+  const [classStart, setClassStart] = useState(
+    new Date(session?.classStartDate)
+  );
+  const [classEnd, setClassEnd] = useState(new Date(session?.classEndDate));
 
+  const regStart = postDate.toISOString().split("T")[0];
+  const regEnd = dedLine.toISOString().split("T")[0];
+  const classStartDate = classStart.toISOString().split("T")[0];
+  const classEndDate = classEnd.toISOString().split("T")[0];
 
   // const { mutateAsync } = useMutation({
-  //   mutationFn: async (rejectedInfo) => {
-  //     const { data } = await axiosSecure.put(
-  //       `/rejectedAdmin/${session?._id}`,
-  //       rejectedInfo
-  //     );
-  //     console.log(data);
+  //   mutationFn: async updateInfo => {
+  //     const { data } = await axiosSecure.patch(`/manageAdmin/update/${session?._id}`, updateInfo);
   //     return data;
   //   },
-  //   onSuccess: (data) => {
-  //     console.log(data);
-  //     toast.success("Update Success!");
+  //   onSuccess: data => {
+  //     toast.success('Update Success!');
   //     refetch();
   //     setUpdateModalOpen(false);
   //   },
+  //   onError: error => {
+  //     toast.error('Failed to update session');
+  //   },
   // });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: async (updateInfo) => {
+      const { data } = await axiosSecure.put(
+        `/updateAdminSession/update/${session?._id}`,
+        updateInfo
+      );
+      console.log(data);
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log(data);
+      toast.success("Update Success!");
+      refetch();
+      setUpdateModalOpen(false);
+    },
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const title = form.title.value;
     const duration = form.duration.value;
-    const email = form.email.value;
-    const name = form.name.value;
-    const fee = form.fee.value;
     const description = form.description.value;
+    const tutorName = form.name.value;
+    const tutorEmail = form.email.value;
+    const fee = form.fee.value;
+
     try {
-      const rejectedInfo = {
+      const updateInfo = {
         title,
         duration,
-        email, 
-        name, 
-        fee,
         description,
-        postDate,
-        dedLine,
-        classStart,
-        classEnd,
-        status
+        regStart,
+        regEnd,
+        classStartDate,
+        classEndDate,
+        tutorName,
+        tutorEmail,
+        fee,
+        status,
       };
 
-      console.log(rejectedInfo);
-      // await mutateAsync(rejectedInfo);
+      // console.log(updateInfo);
+      await mutateAsync(updateInfo);
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error(err.message);
     }
   };
@@ -115,7 +137,6 @@ const UpdateApprovedModal = ({
                   Update Session Info
                 </DialogTitle>
                 <div className="mt-2 w-full">
-                  {/* Update room form */}
                   <UpdateApprovedForm
                     handleSubmit={handleSubmit}
                     refetch={refetch}
@@ -153,7 +174,7 @@ const UpdateApprovedModal = ({
 UpdateApprovedModal.propTypes = {
   setUpdateModalOpen: PropTypes.func,
   isOpen: PropTypes.bool,
-  session: PropTypes.Object,
+  session: PropTypes.object,
   refetch: PropTypes.func,
 };
 
