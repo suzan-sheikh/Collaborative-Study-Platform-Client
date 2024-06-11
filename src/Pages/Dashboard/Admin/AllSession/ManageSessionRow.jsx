@@ -73,29 +73,6 @@ const ManageSessionRow = ({ session, refetch, index }) => {
       }
     });
   };
-
-  // const {mutateAsync} = useMutation({
-  //   mutationFn: async role => {
-  //     const {data} = await axiosSecure.patch(`/users/update/${user?.email}`, role)
-  //     return data
-  //   },
-  //   onSuccess: data => {
-  //     console.log(data);
-  //     toast.success('role updated')
-  //     // refetch()
-  //     setIsOpen(false)
-  //     getData()
-  //   }
-  // })
-
-  // const handleRejected = () => {
-
-  //   const status = {
-  //     status: rejected,
-  //   }
-  //   mutateAsync(status)
-  // };
-
   return (
     <tr>
       <th>{index + 1}</th>

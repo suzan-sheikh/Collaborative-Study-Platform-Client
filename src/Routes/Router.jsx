@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
           element: <Register/>
         },
         {
-          path: '/session-details',
+          path: '/session-details/:id',
           element: <PrivateRoute><SessionDetails/></PrivateRoute>
         }
     ]

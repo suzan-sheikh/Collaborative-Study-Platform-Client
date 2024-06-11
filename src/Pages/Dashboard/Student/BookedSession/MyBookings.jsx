@@ -7,31 +7,33 @@
 
 import { Helmet } from "react-helmet"
 import BookingDataRow from "../../../../components/Dashboard/TableRows/BookingDataRow"
+import useAuth from "../../../../hooks/useAuth"
+import useAxiosSecure from "../../../../hooks/useAxiosSecure"
+import { useQuery } from "@tanstack/react-query"
+import Loader from "../../../Loader/Loader"
 
 const MyBookings = () => {
-  // const { user } = useAuth()
-  // const axiosSecure = useAxiosSecure()
-  // //   Fetch Bookings Data
-  // const {
-  //   data: bookings = [],
-  //   isLoading,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ['my-bookings', user?.email],
-  //   queryFn: async () => {
-  //     const { data } = await axiosSecure.get(`/my-bookings/${user?.email}`)
+  const { user } = useAuth()
+  const axiosSecure = useAxiosSecure()
+  //   Fetch Bookings Data
+  const {
+    data: bookings = [],
+    isLoading,
+  } = useQuery({
+    queryKey: ['bookings', user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/sessionBookingInfo/${user?.email}`)
 
-  //     return data
-  //   },
-  // })
-
-  // if (isLoading) return <LoadingSpinner />
+      return data
+    },
+  })
+console.log(bookings);
+  if (isLoading) return <Loader />
   return (
     <>
       <Helmet>
-        <title>My Bookings</title>
+        <title>Student | My Bookings</title>
       </Helmet>
-
       <div className='container mx-auto px-4 sm:px-8'>
         <div className='py-8'>
           <div className='-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto'>
@@ -41,53 +43,49 @@ const MyBookings = () => {
                   <tr>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
+                      className='px-2 py-2 bg-[#003430] border-b text-white text-center text-sm uppercase font-medium'
                     >
                       Title
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-[#003430]  border-b border-[#003430] text-white  text-center text-sm uppercase font-medium'
+                      className='px-2 py-2 bg-[#003430] border-b text-white text-center text-sm uppercase font-medium'
                     >
-                      Info
+                      Student Name
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-2 py-2 bg-[#003430] border-b text-white text-center text-sm uppercase font-medium'
                     >
-                      Price
+                      Class Start Date
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-2 py-2 bg-[#003430] border-b text-white text-center text-sm uppercase font-medium'
                     >
-                      From
+                     Class End Date
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-2 py-2 bg-[#003430] border-b text-white  text-center text-sm uppercase font-medium'
                     >
-                      To
+                     Fee
                     </th>
                     <th
                       scope='col'
-                      className='px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal'
+                      className='px-2 py-2 bg-[#003430] border-b text-white text-center text-sm uppercase font-medium'
                     >
                       Action
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <BookingDataRow/>
-                  {/* Table Row Data */}
-
-                  {/* {bookings.map(booking => (
+                  {bookings.map(booking => (
                     <BookingDataRow
                       key={booking._id}
                       booking={booking}
-                      refetch={refetch}
                     />
-                  ))} */}
+                  ))}
                 </tbody>
               </table>
             </div>
