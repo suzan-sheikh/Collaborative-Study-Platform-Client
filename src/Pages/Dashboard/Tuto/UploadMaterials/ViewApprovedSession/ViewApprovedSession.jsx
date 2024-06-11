@@ -19,8 +19,6 @@ const ViewApprovedSession = () => {
     },
   });
 
-  console.log(approvedSession);
-
   if (isLoading) return <Loader />;
 
   return (

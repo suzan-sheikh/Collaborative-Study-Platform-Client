@@ -20,7 +20,6 @@ const ViewMaterials = () => {
     },
   });
 
-  console.log(materials);
   
   if (isLoading) return <Loader />;
 

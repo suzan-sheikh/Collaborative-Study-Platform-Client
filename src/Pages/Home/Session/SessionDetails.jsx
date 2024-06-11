@@ -6,9 +6,6 @@ const SessionDetails = () => {
           <p className="text-white text-4xl mx-auto font-medium uppercase text-center">
             Thi is Session Title
           </p>
-
-
-
           <div className="flex flex-col md:flex-row justify-between gap-4 mt-2">
             <div className="text-white flex gap-2 items-center justify-center">
               <span className="uppercase font-bold">Tutor name : </span>

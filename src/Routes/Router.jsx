@@ -21,6 +21,7 @@ import ViewApprovedSession from "../Pages/Dashboard/Tuto/UploadMaterials/ViewApp
 import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMaterials";
 import UpdateMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/UpdateMaterials";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ export const router = createBrowserRouter([
         },
         {
           path: '/session-details',
-          element: <SessionDetails/>
+          element: <PrivateRoute><SessionDetails/></PrivateRoute>
         }
     ]
   },

@@ -20,8 +20,6 @@ const ManageMaterials = () => {
       return data;
     },
   });
-
-  console.log(materials);
   
   if (isLoading) return <Loader />;
 

@@ -55,7 +55,6 @@ const UpdateApprovedModal = ({
         `/updateAdminSession/update/${session?._id}`,
         updateInfo
       );
-      console.log(data);
       return data;
     },
     onSuccess: (data) => {

@@ -26,6 +26,8 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  console.log(loading);
+
   const axiosCommon = useAxiosCommon();
 
 
@@ -76,21 +78,22 @@ const AuthProvider = ({ children }) => {
         axiosCommon.post('/jwt', userInfo)
         .then(res => {
           if(res.data.token){            
-            localStorage.setItem('access-token', res.data.token)
             setLoading(false);
+            localStorage.setItem('access-token', res.data.token)
           }
         })
       }
       else{
         // TODO: remove token (if token stored in the client side)
         localStorage.removeItem('access-token')
+        setLoading(false);
       }      
     });
     return () => {
       return unsubscribe();
     };
   }, [axiosCommon]);
-
+  
   const authInfo = {
     user,
     setUser,

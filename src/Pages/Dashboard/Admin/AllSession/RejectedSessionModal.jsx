@@ -26,7 +26,6 @@ const RejectedSessionModal = ({
         `/rejectedAdmin/${session?._id}`,
         rejectedInfo
       );
-      console.log(data);
       return data;
     },
     onSuccess: (data) => {
