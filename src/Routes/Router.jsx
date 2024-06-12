@@ -215,7 +215,9 @@ export const router = createBrowserRouter([
         path: "updateMaterial/:id",
         element: (
           <PrivateRoute>
-            <UpdateMaterials />
+            <TouterRoute>
+              <UpdateMaterials />
+            </TouterRoute>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
