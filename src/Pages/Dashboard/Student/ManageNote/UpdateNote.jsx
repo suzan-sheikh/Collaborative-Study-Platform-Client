@@ -1,95 +1,85 @@
-import useAuth from "../../../../hooks/useAuth";
-import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 
-const CreateNote = () => {
-  const axiosSecure = useAxiosSecure();
+const UpdateNote = () => {
   const navigate = useNavigate();
-  const { user, loading } = useAuth();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const axiosSecure = useAxiosSecure();
 
-  const studentNoteInfo = async (noteInfo) => {
-    try {
-      const { data } = await axiosSecure.post("/createNote", noteInfo);
-      toast.success("Create Note successful");
-      return data;
-    } catch (error) {
-      console.error("Create Note error:", error);
-      toast.error("Failed to create Note");
-      throw error; // Rethrow the error if you need further handling elsewhere
-    }
-  };
+  const { studentEmail, description, title, _id } = useLoaderData();
 
-  const onSubmit = async (data) => {
-    const { title, description } = data;
-    const noteInfo = {
-      studentEmail: user?.email,
-      title,
-      description,
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const title = form.title.value;
+    const studentEmail = form.email.value;
+    const description = form.description.value;
     try {
-      studentNoteInfo(noteInfo);
-      reset();
-      navigate('/dashboard/manageNote');
+      // create NoteInfo
+      const noteInfo = {
+        title,
+        studentEmail,
+        description
+      };
+      await mutateAsync({ noteInfo });
     } catch (err) {
-      toast.error("Create Note fail!");
+      console.log(err);
+      toast.error(err.message);
     }
   };
 
-  if (user && loading) return;
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ noteInfo }) => {
+      const { data } = await axiosSecure.put(
+        `/updateNote/${_id}`,
+        noteInfo
+      );
+      console.log(data);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Update Note Successful");
+      navigate("/dashboard/manageNote");
+    },
+  });
 
   return (
     <>
       <Helmet>
-        <title>Student | Create Note</title>
+        <title>Student | Update Note</title>
       </Helmet>
       <div className="flex justify-center items-center mx-auto container px-4">
         <div className="flex w-full max-w-sm mx-auto overflow-hidden shadow-lg lg:max-w-4xl bg-[#006961] bg-no-repeat bg-cover">
           <div className="w-1/2 px-6 py-8 md:px-8 mx-auto">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit}>
               <div className="mt-4">
                 <input
                   id="LoggingEmailAddress"
                   autoComplete="email"
                   name="email"
-                  defaultValue={user?.email}
-                  disabled
-                  className="block w-full px-4 py-1 bg-white rounded-sm text-gray-500 border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                  defaultValue={studentEmail}
+                  className="block w-full px-4 py-1 rounded-sm text-gray-500 border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                   type="email"
                 />
-                {errors.email && (
-                  <span className="text-primary">This field is required</span>
-                )}
               </div>
 
               <div className="mt-2">
                 <input
                   id="title"
                   name="title"
-                  placeholder="Enter Your Note Title"
+                  defaultValue={title}
                   className="block w-full px-4 py-1 rounded-sm text-gray-500 bg-white  border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                   type="text"
-                  {...register("title", { required: true })}
                 />
-                {errors.title && (
-                  <span className="text-primary">This field is required</span>
-                )}
               </div>
               <div className="my-2">
                 <textarea
                   id="description"
                   name="description"
                   className="w-full h-20 px-4 pt-4 focus:border-none focus:outline-none rounded-sm"
-                  placeholder="Enter You Description"
-                  {...register("description", { required: true })}
+                  defaultValue={description}
                 ></textarea>
               </div>
               <div className="mt-2">
@@ -108,4 +98,4 @@ const CreateNote = () => {
   );
 };
 
-export default CreateNote;
+export default UpdateNote;

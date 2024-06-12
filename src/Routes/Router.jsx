@@ -22,6 +22,7 @@ import UploadMaterials from "../Pages/Dashboard/Tuto/UploadMaterials/UploadMater
 import UpdateMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/UpdateMaterials";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
+import UpdateNote from "../Pages/Dashboard/Student/ManageNote/UpdateNote";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +76,11 @@ export const router = createBrowserRouter([
       ,{
         path: 'manageNote',
         element: <ManageNote/>
+      },      
+      {
+        path: 'updateNote/:id',
+        element: <UpdateNote/>,
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/noteToID/${params.id}`)
       },
       {
         path: 'createSession',

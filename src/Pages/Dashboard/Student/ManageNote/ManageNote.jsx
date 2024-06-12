@@ -1,31 +1,27 @@
-
-// import useAuth from '../../../hooks/useAuth'
-// import useAxiosSecure from '../../../hooks/useAxiosSecure'
-// import { useQuery } from '@tanstack/react-query'
-// import BookingDataRow from '../../../components/Dashboard/TableRows/BookingDataRow'
-// import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
-
 import { Helmet } from "react-helmet"
 import ManageNoteRow from "./ManageNoteRow"
+import useAxiosSecure from "../../../../hooks/useAxiosSecure"
+import useAuth from "../../../../hooks/useAuth"
+import { useQuery } from "@tanstack/react-query"
+import Loader from "../../../Loader/Loader"
 
 const ManageNote = () => {
-  // const { user } = useAuth()
-  // const axiosSecure = useAxiosSecure()
-  // //   Fetch Bookings Data
-  // const {
-  //   data: bookings = [],
-  //   isLoading,
-  //   refetch,
-  // } = useQuery({
-  //   queryKey: ['my-bookings', user?.email],
-  //   queryFn: async () => {
-  //     const { data } = await axiosSecure.get(`/my-bookings/${user?.email}`)
+  const { user } = useAuth()
+  const axiosSecure = useAxiosSecure()
+  //   Fetch Student Note Data
+  const {
+    data: notes = [],
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ['my-bookings', user?.email],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get('/studentNote')
+      return data
+    },
+  })
 
-  //     return data
-  //   },
-  // })
-
-  // if (isLoading) return <LoadingSpinner />
+  if (isLoading) return <Loader/>
   return (
     <>
       <Helmet>
@@ -72,19 +68,13 @@ const ManageNote = () => {
                   </tr>
                 </thead>
                 <tbody>
-
-                  <ManageNoteRow/>
-
-                  {/* <BookingDataRow/> */}
-                  {/* Table Row Data */}
-
-                  {/* {bookings.map(booking => (
-                    <BookingDataRow
-                      key={booking._id}
-                      booking={booking}
+                  {notes.map(note => (
+                    <ManageNoteRow
+                      key={note._id}
+                      note={note}
                       refetch={refetch}
                     />
-                  ))} */}
+                  ))}
                 </tbody>
               </table>
             </div>
