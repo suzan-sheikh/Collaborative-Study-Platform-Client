@@ -23,6 +23,8 @@ import UpdateMaterials from "../Pages/Dashboard/Tuto/ViewMaterials/UpdateMateria
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import PrivateRoute from "./PrivateRoute";
 import UpdateNote from "../Pages/Dashboard/Student/ManageNote/UpdateNote";
+import ViewStudentMaterials from "../Pages/Dashboard/Student/ViewMaterials/ViewStudentMaterials";
+import ShowMaterials from "../Pages/Dashboard/Student/ViewMaterials/ShowMaterials";
 
 export const router = createBrowserRouter([
   {
@@ -65,8 +67,8 @@ export const router = createBrowserRouter([
         element: <MyBookings/>
       }
       ,{
-        path: 'studentSessionDetailed/:id',
-        element: <SessionDetailed/>,
+        path: 'ShowMaterials/:id',
+        element: <ShowMaterials/>,
         loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`)        
       }
       ,{
@@ -81,6 +83,15 @@ export const router = createBrowserRouter([
         path: 'updateNote/:id',
         element: <UpdateNote/>,
         loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/noteToID/${params.id}`)
+      }
+      ,{
+        path: 'student-material',
+        element: <ViewStudentMaterials/>
+      }
+      ,{
+        path: 'studentSessionDetailed/:id',
+        element: <SessionDetailed/>,
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`)        
       },
       {
         path: 'createSession',

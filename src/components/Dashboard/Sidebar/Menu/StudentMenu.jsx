@@ -15,7 +15,7 @@ const StudentMenu = () => {
       <MenuItem icon={CiPen} label='View Book Session' address='my-bookings'/>
       <MenuItem icon={CiSquarePlus} label='Create Note' address='createNote'/>
       <MenuItem icon={RiListSettingsLine} label='Manage Notes' address='manageNote'/>
-      <MenuItem icon={AiOutlineEye} label='View All Materials' address='my-bookings'/>
+      <MenuItem icon={AiOutlineEye} label='View All Materials' address='student-material'/>
     </>
   )
 }

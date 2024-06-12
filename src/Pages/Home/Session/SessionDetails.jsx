@@ -38,7 +38,7 @@ const SessionDetails = () => {
         duration,
       } = session; 
       const bookingInfo = {        
-        sessionId: _id,
+        sessionID: _id,
         title,
         studentName: user?.displayName,
         studentEmail: user?.email,

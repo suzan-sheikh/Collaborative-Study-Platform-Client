@@ -1,13 +1,19 @@
+
+// import useAuth from '../../../hooks/useAuth'
+// import useAxiosSecure from '../../../hooks/useAxiosSecure'
+// import { useQuery } from '@tanstack/react-query'
+// import BookingDataRow from '../../../components/Dashboard/TableRows/BookingDataRow'
+// import LoadingSpinner from '../../../components/Shared/LoadingSpinner'
+
 import { Helmet } from "react-helmet"
+import BookingDataRow from "../BookedSession/BookingDataRow"
 import useAuth from "../../../../hooks/useAuth"
 import useAxiosSecure from "../../../../hooks/useAxiosSecure"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Loader/Loader"
-import BookingDataRow from "./BookingDataRow"
 
 const MyBookings = () => {
   const { user } = useAuth()
-
   const axiosSecure = useAxiosSecure()
   //   Fetch Bookings Data
   const {
@@ -21,7 +27,8 @@ const MyBookings = () => {
       return data
     },
   })
-    if (isLoading) return <Loader />
+console.log(bookings);
+  if (isLoading) return <Loader />
   return (
     <>
       <Helmet>

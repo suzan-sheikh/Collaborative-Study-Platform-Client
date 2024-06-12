@@ -3,11 +3,10 @@ import useAuth from "../../../../hooks/useAuth"
 import useAxiosSecure from "../../../../hooks/useAxiosSecure"
 import { useQuery } from "@tanstack/react-query"
 import Loader from "../../../Loader/Loader"
-import BookingDataRow from "./BookingDataRow"
+import MaterialsDataRow from "./MaterialsDataRow"
 
-const MyBookings = () => {
+const ViewStudentMaterials = () => {
   const { user } = useAuth()
-
   const axiosSecure = useAxiosSecure()
   //   Fetch Bookings Data
   const {
@@ -21,7 +20,8 @@ const MyBookings = () => {
       return data
     },
   })
-    if (isLoading) return <Loader />
+  
+  if (isLoading) return <Loader />
   return (
     <>
       <Helmet>
@@ -74,7 +74,7 @@ const MyBookings = () => {
                 </thead>
                 <tbody>
                   {bookings.map(booking => (
-                    <BookingDataRow
+                    <MaterialsDataRow
                       key={booking._id}
                       booking={booking}
                     />
@@ -89,4 +89,4 @@ const MyBookings = () => {
   )
 }
 
-export default MyBookings
+export default ViewStudentMaterials
