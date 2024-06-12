@@ -1,11 +1,8 @@
 const Slide = ({ image, heading, subheading, bg }) => {
   return (
-    <div
-      className={`w-full bg-center bg-cover h-[10rem] md:h-[542px] ${bg}`}
-    >
+    <div className={`w-full bg-center bg-cover h-[10rem] md:h-[542px] ${bg}`}>
       <div className="flex flex-col md:flex-row items-center justify-between w-full h-full container py-3 sm:py-1 mx-auto px-4 gap-4">
-        
-        <div className="w-1/2 flex flex-col gap-4 text-white">
+        <div className="hidden md:block w-1/2 flex-col gap-4 text-white">
           <h2 className="text-2xl font-medium">{heading}</h2>
           <p className="text-4xl font-medium">{subheading}</p>
           <div className="flex p-1 overflow-hidden">
@@ -20,8 +17,8 @@ const Slide = ({ image, heading, subheading, bg }) => {
           </div>
         </div>
         <div className="w-full h-full">
-        <img src={image} alt="banner image" className="w-full h-full" />
-      </div>
+          <img src={image} alt="banner image" className="w-full h-full" />
+        </div>
       </div>
     </div>
   );

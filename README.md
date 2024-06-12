@@ -1,7 +1,7 @@
 <h1 align="center">Collaborative Study Platform (Full Stack): Brain Bond</h1>
 
 <h3 align="justify">
-    Admin Username: suzan
+    Admin Email: mdsuzanskh@gmail.com
 </h3>
 <h3 align="justify">    
     Admin Password: 123456

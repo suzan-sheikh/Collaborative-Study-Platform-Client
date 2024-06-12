@@ -6,7 +6,6 @@ import Register from "../Pages/Authentication/Register";
 import SessionDetails from "../Pages/Home/Session/SessionDetails";
 import Statistics from "../Pages/Dashboard/Common/Statistics";
 import DashboardLayout from "../Layout/DashboardLayout";
-import Profile from "../Pages/Dashboard/Common/Profile";
 import MyBookings from "../Pages/Dashboard/Student/BookedSession/MyBookings";
 import SessionDetailed from "../Pages/Dashboard/Student/BookedSession/SessionDetailed";
 import CreateNote from "../Pages/Dashboard/Student/CreateNote/CreateNote";
@@ -57,10 +56,6 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Statistics/>        
-      },
-      {
-        path: 'profile',
-        element: <Profile/>
       }
       ,{
         path: 'my-bookings',

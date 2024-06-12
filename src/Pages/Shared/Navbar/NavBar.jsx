@@ -1,47 +1,9 @@
 import { NavLink, Link } from "react-router-dom";
-import { HiMenuAlt3, HiMenuAlt1 } from "react-icons/hi";
-import { useState } from "react";
-import ResponsiveMenu from "./ResponsiveMenu";
 import logo from "../../../assets/images/logo.png";
 import useAuth from "../../../hooks/useAuth";
 
 const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const { user, logOut, createUser } = useAuth();
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
-
-  // NavLink
-  const navLink = (
-    <>
-      <li className="py-4">
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
-              : "text-[#282828] border-none font-md text-md"
-          }
-        >
-          Home
-        </NavLink>
-      </li>
-
-      <li className="py-4">
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            isActive
-              ? "border-b-4 border-[#42CE9F] text-[#282828] font-md text-md"
-              : "text-[#282828] border-none font-md text-md"
-          }
-        >
-          Dashboard
-        </NavLink>
-      </li>
-    </>
-  );
+  const { user, logOut,} = useAuth();
 
   return (
     <>
@@ -58,10 +20,7 @@ const Navbar = () => {
               </Link>
               {/* <span>TCJ Tourism</span> */}
             </div>
-            <div className="hidden md:block">
-              <ul className="flex items-center gap-6 ">{navLink}</ul>
-            </div>
-            <div className="flex items-center gap-4 justify-center">
+            <div className="flex items-center gap-4 justify-center p-4">
               <ul className="flex items-center gap-4">
                 {!user && (
                   <>
@@ -87,7 +46,7 @@ const Navbar = () => {
 
               {user && (
                 <div className="flex gap-4 items-center">
-                  <div className="hidden md:block">
+                  <div>
                     <ul className="flex items-center gap-6 ">
                       <li className="py-4">
                         <NavLink
@@ -127,27 +86,10 @@ const Navbar = () => {
                     </div>
                   </div>
                 </div>
-              )}
-              {/* Mobile Hamburger icon */}
-              <div className="md:hidden block">
-                {showMenu ? (
-                  <HiMenuAlt1
-                    onClick={toggleMenu}
-                    className=" cursor-pointer transition-all"
-                    size={30}
-                  />
-                ) : (
-                  <HiMenuAlt3
-                    onClick={toggleMenu}
-                    className="cursor-pointer transition-all"
-                    size={30}
-                  />
-                )}
-              </div>
+              )} 
             </div>
           </div>
         </div>
-        <ResponsiveMenu setShowMenu={setShowMenu} showMenu={showMenu} />
       </nav>
     </>
   );

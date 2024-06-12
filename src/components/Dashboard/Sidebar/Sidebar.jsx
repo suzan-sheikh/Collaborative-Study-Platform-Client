@@ -1,9 +1,5 @@
 import { useState } from 'react'
-import { GrLogout } from 'react-icons/gr'
-import { IoSettingsOutline } from "react-icons/io5";
 import { AiOutlineBars } from 'react-icons/ai'
-import { NavLink } from 'react-router-dom'
-import useAuth from '../../../hooks/useAuth'
 import { Link } from 'react-router-dom'
 import MenuItem from './Menu/MenuItem'
 import AdminMenu from './Menu/AdminMenu'
@@ -15,7 +11,6 @@ import { IoMdHome } from "react-icons/io";
 
 
 const Sidebar = () => {
-  const { logOut } = useAuth()
   const [isActive, setActive] = useState(false)
 
   // role change koro
@@ -40,7 +35,6 @@ const Sidebar = () => {
                 width='100'
                 height='100'
               />
-              <IoMdHome />
             </Link>
           </div>
         </div>
@@ -61,7 +55,7 @@ const Sidebar = () => {
       >
         <div>
           <div>
-            <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto'>
+            <div className='w-full md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto'>
               <Link to='/' className='flex items-center gap-2'>
                 <img
                   // className='hidden md:block'
@@ -97,32 +91,6 @@ const Sidebar = () => {
 
             </nav>
           </div>
-        </div>
-
-        <div>
-          <hr />
-
-          {/* Profile Menu */}
-          <NavLink
-            to='/dashboard/profile'
-            className={({ isActive }) =>
-              `flex items-center px-4 py-2 my-5  transition-colors duration-300 transform  hover:bg-[#42CE9F]   hover:text-white ${
-                isActive ? 'bg-[#42CE9F]  text-white' : 'text-white'
-              }`
-            }
-          >
-            <IoSettingsOutline className='w-5 h-5 text-white'/>
-
-            <span className='mx-4 font-medium'>Profile</span>
-          </NavLink>
-          <button
-            onClick={logOut}
-            className='flex w-full items-center px-4 py-2 mt-5 text-white hover:bg-[#42CE9F] hover:text-white transition-colors duration-300 transform'
-          >
-            <GrLogout className='w-5 h-5' />
-
-            <span className='mx-4 font-medium'>Logout</span>
-          </button>
         </div>
       </div>
     </>
