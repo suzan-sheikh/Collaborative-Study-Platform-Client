@@ -51,12 +51,6 @@ const AllTutor = () => {
                     >
                       Role
                     </th>
-                    <th
-                      scope="col"
-                      className="px-5 py-3 bg-[#003430] border-b border-[#003430] text-white text-center text-sm uppercase font-medium"
-                    >
-                      Change Role
-                    </th>
                   </tr>
                 </thead>
                 <tbody>

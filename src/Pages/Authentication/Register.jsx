@@ -160,7 +160,7 @@ const Register = () => {
                 >
                   <option value="student">Student</option>
                   <option value="tutor">Tutor</option>
-                  <option value="Admin">Admin</option>
+                  <option value="admin">Admin</option>
                 </select>
               </div>
             </div>
@@ -169,7 +169,7 @@ const Register = () => {
                 type="submit"
                 className="w-full px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gradient-to-r from-[#41CF9F] to-[#3B82F6] hover:from-pink-500 hover:to-purple-500 rounded-lg focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50"
               >
-                Login Now
+                Register Now
               </button>
             </div>
           </form>

@@ -1,4 +1,4 @@
-import { createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../Pages/Home/Home";
 import MainLayout from "../Layout/MainLayout";
 import Login from "../Pages/Authentication/Login";
@@ -24,108 +24,203 @@ import PrivateRoute from "./PrivateRoute";
 import UpdateNote from "../Pages/Dashboard/Student/ManageNote/UpdateNote";
 import ViewStudentMaterials from "../Pages/Dashboard/Student/ViewMaterials/ViewStudentMaterials";
 import ShowMaterials from "../Pages/Dashboard/Student/ViewMaterials/ShowMaterials";
+import StudentRoute from "./StudentRoute";
+import AdminRoute from "./AdminRoute";
+import TouterRoute from "./TouterRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout/>,
-    errorElement: <ErrorPage/>,
+    element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
-        {
-            path: '/',
-            element: <Home/>
-        },
-        {
-          path: 'login',
-          element: <Login/>
-        },
-        {
-          path: 'register',
-          element: <Register/>
-        },
-        {
-          path: '/session-details/:id',
-          element: <PrivateRoute><SessionDetails/></PrivateRoute>
-        }
-    ]
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "/session-details/:id",
+        element: (
+          <PrivateRoute>
+            <SessionDetails />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
   {
-    path: '/dashboard',
-    element: <DashboardLayout/>,
+    path: "/dashboard",
+    element: <DashboardLayout />,
     children: [
       {
         index: true,
-        element: <Statistics/>        
-      }
-      ,{
-        path: 'my-bookings',
-        element: <MyBookings/>
-      }
-      ,{
-        path: 'ShowMaterials/:id',
-        element: <ShowMaterials/>,
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`)        
-      }
-      ,{
-        path: 'createNote',
-        element: <CreateNote/>
-      }      
-      ,{
-        path: 'manageNote',
-        element: <ManageNote/>
-      },      
-      {
-        path: 'updateNote/:id',
-        element: <UpdateNote/>,
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/noteToID/${params.id}`)
-      }
-      ,{
-        path: 'student-material',
-        element: <ViewStudentMaterials/>
-      }
-      ,{
-        path: 'studentSessionDetailed/:id',
-        element: <SessionDetailed/>,
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`)        
+        element: <Statistics />,
       },
       {
-        path: 'createSession',
-        element: <CreateSession/>
+        path: "my-bookings",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <MyBookings />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'allSession',
-        element: <ViewAllSession/>
+        path: "ShowMaterials/:id",
+        element: (
+          <PrivateRoute>
+            <ShowMaterials />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`),
       },
       {
-        path: 'uploadMaterials',
-        element: <ViewApprovedSession/>
+        path: "createNote",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <CreateNote />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'uploadMaterials/:id',
-        element: <UploadMaterials/>,
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getToID/${params.id}`)
+        path: "manageNote",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <ManageNote />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'viewMaterials',
-        element: <ViewMaterials/>
-      }
-      ,{
-        path: 'manageUsers',
-        element: <ManageUsers/>
+        path: "updateNote/:id",
+        element: <UpdateNote />,
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/noteToID/${params.id}`),
       },
       {
-        path: 'manageSession',
-        element: <ManageSession/>
+        path: "student-material",
+        element: (
+          <PrivateRoute>
+            <StudentRoute>
+              <ViewStudentMaterials />
+            </StudentRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path: 'manageMaterials',
-        element: <ManageMaterials/>
+        path: "studentSessionDetailed/:id",
+        element: (
+          <PrivateRoute>
+            <SessionDetailed />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`),
       },
       {
-        path: 'updateMaterial/:id',
-        element: <UpdateMaterials/>,
-        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/materialToID/${params.id}`)
+        path: "createSession",
+        element: (
+          <PrivateRoute>
+            <TouterRoute>
+              <CreateSession />
+            </TouterRoute>
+          </PrivateRoute>
+        ),
       },
-    ]
-  }
+      {
+        path: "allSession",
+        element: (
+          <PrivateRoute>
+            <TouterRoute>
+              <ViewAllSession />
+            </TouterRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "uploadMaterials",
+        element: (
+          <PrivateRoute>
+            <ViewApprovedSession />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "uploadMaterials/:id",
+        element: (
+          <PrivateRoute>
+            <TouterRoute>
+              <UploadMaterials />
+            </TouterRoute>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/getToID/${params.id}`),
+      },
+      {
+        path: "viewMaterials",
+        element: (
+          <PrivateRoute>
+            <TouterRoute>
+              <ViewMaterials />
+            </TouterRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manageUsers",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageUsers />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manageSession",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <ManageSession />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manageMaterials",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              {" "}
+              <ManageMaterials />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "updateMaterial/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateMaterials />
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${import.meta.env.VITE_API_URL}/materialToID/${params.id}`),
+      },
+    ],
+  },
 ]);

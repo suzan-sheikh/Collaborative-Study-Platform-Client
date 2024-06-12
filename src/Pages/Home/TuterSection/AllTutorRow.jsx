@@ -22,11 +22,6 @@ const AllTutorRow = ({tutor, index}) => {
         {tutor?.role}
         </p>
       </td>
-      <td className="px-2 py-2  border-b border-gray-200 bg-white text-sm">
-        <p className="text-gray-900 whitespace-no-wrap text-center">
-        {tutor?.email}
-        </p>
-      </td>
     </tr>
   );
 };

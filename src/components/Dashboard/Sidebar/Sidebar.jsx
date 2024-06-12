@@ -8,13 +8,13 @@ import StudentMenu from './Menu/StudentMenu'
 import TutorMenu from './Menu/TutorMenu';
 import logo from '../../../assets/images/logo.png';
 import { IoMdHome } from "react-icons/io";
+import useRole from '../../../hooks/useRole'
 
 
 const Sidebar = () => {
   const [isActive, setActive] = useState(false)
 
-  // role change koro
-  // const [role] = 'admin'
+  const [role, isLoading] = useRole()
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -79,10 +79,14 @@ const Sidebar = () => {
               {/* Statistics */}
               <MenuItem icon={BsGraphUp} address='/dashboard' label='Statistics'/>
 
+              {role === 'student' && <StudentMenu/>}          
+              {role === 'tutor' && <TutorMenu/> }
+              {role === 'admin' && <AdminMenu/> }
 
-            <StudentMenu/>
-            <TutorMenu/> 
-            <AdminMenu/> 
+
+            
+            
+            
 
               {/* {role === 'guest' && <GuestMenu/> }
               {role === 'host' && <HostMenu/>}
