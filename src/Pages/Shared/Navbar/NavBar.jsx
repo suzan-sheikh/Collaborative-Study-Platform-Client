@@ -10,7 +10,7 @@ const Navbar = () => {
       <nav className="fixed top-0 right-0 w-full z-20 bg-white text-black shadow-md">
         <div
           data-aos="zoom-out"
-          className="container py-3 sm:py-1 mx-auto px-4"
+          className="container sm:py-1 mx-auto px-2"
         >
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4 font-bold text-xl">
@@ -20,11 +20,11 @@ const Navbar = () => {
               </Link>
               {/* <span>TCJ Tourism</span> */}
             </div>
-            <div className="flex items-center gap-4 justify-center p-4">
+            <div className="flex items-center gap-4 justify-center p-2">
               <ul className="flex items-center gap-4">
                 {!user && (
                   <>
-                    <li className="flex gap-2">
+                    <li className="flex gap-2 py-2">
                       <Link
                         to="login"
                         className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
@@ -32,7 +32,7 @@ const Navbar = () => {
                         Login
                       </Link>
                     </li>
-                    <li className="flex gap-2">
+                    <li className="flex gap-2 py-2">
                       <NavLink
                         to="register"
                         className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
@@ -48,7 +48,7 @@ const Navbar = () => {
                 <div className="flex gap-4 items-center">
                   <div>
                     <ul className="flex items-center gap-6 ">
-                      <li className="py-4">
+                      <li className="py-2">
                         <NavLink
                           to="/dashboard"
                           className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"
@@ -56,7 +56,7 @@ const Navbar = () => {
                           Dashboard
                         </NavLink>
                       </li>
-                      <li className="py-4">
+                      <li className="py-2">
                         <button
                           onClick={logOut}
                           className="border-b-4 hover:border-[#42CE9F] text-[#282828] transition-all font-md text-md"

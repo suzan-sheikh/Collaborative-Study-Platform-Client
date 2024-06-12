@@ -1,13 +1,13 @@
 import Banner from "./Banner/Banner";
 import Session from "./Session/Session";
-import Tutor from "./Tutor/Tutor";
+import AllTutor from "./TuterSection/AllTutor";
 
 const Home = () => {
     return (
         <div className="mt-16">
             <Banner/>
             <Session/>
-            <Tutor/>
+            <AllTutor/>
         </div>
     );
 };

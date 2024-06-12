@@ -10,7 +10,7 @@ const ManageUsers = () => {
   const [itemPerPage, setItemPerPage] = useState(3);
   const [count, setCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [jobs, setJobs] = useState([]);
+  const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
   const [searchText, setSearchText] = useState("");
 
@@ -18,7 +18,7 @@ const ManageUsers = () => {
     const { data } = await axiosSecure(
       `/allUser?page=${currentPage}&size=${itemPerPage}&search=${search}`
     );
-    setJobs(data);
+    setUsers(data);
   };
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const ManageUsers = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {jobs.map((user, index) => (
+                  {users.map((user, index) => (
                     <MangeUserRow
                       key={user._id}
                       user={user}
