@@ -2,13 +2,15 @@
 
 <h3 align="justify">
     Admin Username: suzan
+</h3>
+<h3 align="justify">    
     Admin Password: 123456
 </h3>
 
 
 # Description
 <p align="justify">
-    Welcome to [Job Hunter] - your ultimate destination for career opportunities! Whether you're a seasoned professional or just starting out, we've got you covered. Browse through thousands of job listings across various industries, from tech to healthcare, and everything in between. Our user-friendly interface makes job searching a breeze, while our advanced search filters help you pinpoint the perfect match for your skills and preferences. Join [Job Hunter] today and take the next step towards your dream career!"
+    Welcome to [Brain Bond] - This project is an advanced educational platform that allows students to book sessions, create and manage their notes, and access various learning materials. It incorporates Firebase for secure email-password registration, and Google and GitHub login options. MongoDB is utilized for backend data management through APIs."
 </p>
 
 # <a href="https://brainbond-e920d.web.app" target="_blank">Live App Demo</a>
