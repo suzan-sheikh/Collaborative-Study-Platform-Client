@@ -1,39 +1,45 @@
-import { useLocation, useNavigate } from "react-router-dom";
+
 import useAuth from "../../../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { Helmet } from "react-helmet";
+import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 
 const CreateNote = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state || "/";
 
+
+  const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuth();
-
   const {
     register,
-    reset,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const { email, password } = data;
+  const studentNoteInfo = async (noteInfo) => {
     try {
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/jwt`,
-        {
-          email: user?.email,
-        },
-        { withCredentials: true }
-      );
-      navigate(from, { replace: true });
-      toast.success("Login Successful");
+      const { data } = await axiosSecure.post("/createNote", noteInfo);
+      toast.success("Create Note successful");
+      return data;
+    } catch (error) {
+      console.error("Create Note error:", error);
+      toast.error("Failed to create Note");
+      throw error; // Rethrow the error if you need further handling elsewhere
+    }
+  };
+  
+  const onSubmit = async (data) => {
+    const { title, description } = data;
+    const noteInfo = {
+      studentEmail: user?.email,       
+      title, description
+    };
+    try {
+      studentNoteInfo(noteInfo);
       reset();
     } catch (err) {
-      toast.error("Login Failed");
+      toast.error("Create Note fail!");
     }
   };
 
@@ -53,10 +59,10 @@ const CreateNote = () => {
                   id="LoggingEmailAddress"
                   autoComplete="email"
                   name="email"
-                  defaultValue={"default@email.com"}
-                  className="block w-full px-4 py-1 rounded-sm text-gray-500 border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
+                  defaultValue={user?.email}
+                  disabled
+                  className="block w-full px-4 py-1 bg-white rounded-sm text-gray-500 border focus:border-blue-400 focus:ring-opacity-40  focus:outline-none focus:ring focus:ring-blue-300"
                   type="email"
-                  {...register("email", { required: true })}
                 />
                 {errors.email && (
                   <span className="text-primary">This field is required</span>
@@ -78,10 +84,11 @@ const CreateNote = () => {
               </div>
               <div className="my-2">
                 <textarea
-                  name=""
-                  id=""
+                  id="description"
+                  name="description"
                   className="w-full h-20 px-4 pt-4 focus:border-none focus:outline-none rounded-sm"
                   placeholder="Enter You Description"
+                  {...register("description", { required: true })}
                 ></textarea>
               </div>
               <div className="mt-2">

@@ -39,7 +39,7 @@ const CreateSession = () => {
     formState: { errors },
   } = useForm();
 
-  const saveUser = async (sessionInfo) => {
+  const createSession = async (sessionInfo) => {
     try {
       const { data } = await axiosCommon.post("/session", sessionInfo);
       toast.success("Create session successful");
@@ -66,7 +66,7 @@ const CreateSession = () => {
       status
     };
     try {
-      saveUser(sessionInfo);
+      createSession(sessionInfo);
       reset();
       navigate('/dashboard/allSession');
     } catch (err) {
