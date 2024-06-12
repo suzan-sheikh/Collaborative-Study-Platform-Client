@@ -11,6 +11,7 @@ import { BsGraphUp } from 'react-icons/bs'
 import StudentMenu from './Menu/StudentMenu'
 import TutorMenu from './Menu/TutorMenu';
 import logo from '../../../assets/images/logo.png';
+import { IoMdHome } from "react-icons/io";
 
 
 const Sidebar = () => {
@@ -39,6 +40,7 @@ const Sidebar = () => {
                 width='100'
                 height='100'
               />
+              <IoMdHome />
             </Link>
           </div>
         </div>
@@ -60,7 +62,7 @@ const Sidebar = () => {
         <div>
           <div>
             <div className='w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center mx-auto'>
-              <Link to='/'>
+              <Link to='/' className='flex items-center gap-2'>
                 <img
                   // className='hidden md:block'
                   src={logo}
@@ -68,7 +70,9 @@ const Sidebar = () => {
                   width='100'
                   height='100'
                 />
+                <IoMdHome className='text-[#42CE9F] text-2xl hover:text-blue-600 cursor-pointer' />
               </Link>
+              
             </div>
           </div>
 

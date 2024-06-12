@@ -2,9 +2,9 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const BookingDataRow = ({booking}) => {
-  
-  
+const BookingDataRow = ({booking}) => {  
+
+  console.log(booking)
 
   return (
     <tr>      
@@ -12,24 +12,23 @@ const BookingDataRow = ({booking}) => {
         <p>{booking?.title}</p>
       </td>
       <td className='px-2 py-2 border-b border-gray-200 text-center text-sm'>
-
+      {booking?.studentName}
       </td>
       <td className='px-2 py-2 border-b border-gray-200 text-center text-sm'>
-        <p className='text-gray-900 whitespace-no-wrap'>$12500</p>
+        <p className='text-gray-900 whitespace-no-wrap'>{booking.classStartDate}</p>
       </td>
       <td className='px-2 py-2 border-b border-gray-200 text-center text-sm'>
         <p className='text-gray-900 whitespace-no-wrap'>
-          10124111
+        {booking.classEndDate}
         </p>
       </td>
       <td className='px-2 py-2 border-b border-gray-200 text-center text-sm'>
         <p className='text-gray-900 whitespace-no-wrap'>
-         125454211
+         $ {booking.fee}
         </p>
       </td>
       <td className='px-2 py-2 border-b border-gray-200 text-center text-sm'>
-        <Link to='/dashboard/studentSessionDetailed'
-          // onClick={() => setIsOpen(true)}
+        <Link to={`/dashboard/studentSessionDetailed/${booking._id}`}
           className='relative cursor-pointer inline-block px-3 py-1 font-semibold text-green-900 leading-tight'
         >
           <span
@@ -38,13 +37,6 @@ const BookingDataRow = ({booking}) => {
           ></span>
           <span className='relative text-white'>View Details</span>
         </Link>
-        {/* Delete Modal */}
-        {/* <DeleteModal
-          handleDelete={handleDelete}
-          closeModal={closeModal}
-          isOpen={isOpen}
-          id={booking?._id}
-        /> */}
       </td>
     </tr>
   )

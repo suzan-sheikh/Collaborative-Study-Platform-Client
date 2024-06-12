@@ -64,8 +64,9 @@ export const router = createBrowserRouter([
         element: <MyBookings/>
       }
       ,{
-        path: 'studentSessionDetailed',
-        element: <SessionDetailed/>
+        path: 'studentSessionDetailed/:id',
+        element: <SessionDetailed/>,
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/getBookingToID/${params.id}`)        
       }
       ,{
         path: 'createNote',
