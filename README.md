@@ -27,7 +27,16 @@
 - Use Firebase Authentication with JWT for secure login and registration.
 - Admins have full rights to all sessions and materials within the application.
 
-  ## Setup
+# Technology:
+
+- Tailwind CSS
+- React.js
+- Node.js
+- Express.js
+- MongoDB
+- JWT and Firebase.
+
+## Setup
 
 To setup the project you have to execute the command below:
 
@@ -48,7 +57,7 @@ VITE_messagingSenderId=***************
 VITE_appId=***************
 ```
 
-The first six api key you will get form firebase.
+The six api key you will get form firebase.
 
 3. After setting environment variable you can run or build your project.
 
